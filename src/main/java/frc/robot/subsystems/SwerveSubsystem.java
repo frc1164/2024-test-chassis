@@ -120,7 +120,7 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     public Rotation2d getRotation2d() {
-        return Rotation2d.fromDegrees(getHeading());
+        return Rotation2d.fromDegrees(getHeading()); // Add (-) here
     }
 
     public Pose2d getPose() {
