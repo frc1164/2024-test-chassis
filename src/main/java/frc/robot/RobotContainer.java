@@ -67,7 +67,7 @@ public class RobotContainer {
                  * swerveSubsystem.zeroHeading());
                  */
 
-                new JoystickButton(m_driveController, 0).onTrue(new InstantCommand(() -> swerveSubsystem.zeroHeading()));
+                new JoystickButton(m_driveController, 1).onTrue(new InstantCommand(() -> swerveSubsystem.zeroHeading()));
 
                 
         }
