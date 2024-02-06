@@ -34,7 +34,7 @@ public class RobotContainer {
                                 swerveSubsystem,
                                 () -> m_driveController.getRawAxis(OIConstants.kDriverYAxis),
                                 () -> m_driveController.getRawAxis(OIConstants.kDriverXAxis),
-                                () -> m_driveController.getRawAxis(OIConstants.kDriverRotAxis),
+                                () -> -m_driveController.getRawAxis(OIConstants.kDriverRotAxis),
                                 () -> !m_driveController.getRawButton(0)));
 
                 // Build an auto chooser. This will use Commands.none() as the default option.
