@@ -10,6 +10,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.commands.AprilTagAlignCmd;
+import frc.robot.commands.NoteAlignCmd;
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -61,6 +62,8 @@ public class RobotContainer {
                 Trigger dDPad = m_controller.povDown();
 
                 aButton.whileTrue(new AprilTagAlignCmd(swerveSubsystem));
+                bButton.whileTrue(new NoteAlignCmd(swerveSubsystem));
+
                 /*
                  * new JoystickButton(driverJoytick, 2).whenPressed(() ->
                  * swerveSubsystem.zeroHeading());
