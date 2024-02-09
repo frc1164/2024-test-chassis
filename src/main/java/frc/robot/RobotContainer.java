@@ -66,7 +66,7 @@ public class RobotContainer {
                 Trigger dDPad = m_controller.povDown();
 
                 aButton.whileTrue(new AprilTagAlignCmd(swerveSubsystem));
-                bButton.whileTrue(new NoteAlignCmd(swerveSubsystem));
+                bButton.onTrue(new NoteAlignCmd(swerveSubsystem));
 
                 /*
                  * new JoystickButton(driverJoytick, 2).whenPressed(() ->

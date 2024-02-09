@@ -62,7 +62,7 @@ public class NoteAlignCmd extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    SmartDashboard.putBoolean("NoteAlign", false);
+    //SmartDashboard.putBoolean("NoteAlign", false);
   }
 
   // Returns true when the command should end.

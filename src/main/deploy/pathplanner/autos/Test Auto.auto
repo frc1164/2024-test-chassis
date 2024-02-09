@@ -16,6 +16,12 @@
           "data": {
             "pathName": "Example Path"
           }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "NoteAlignedCmd"
+          }
         }
       ]
     }
