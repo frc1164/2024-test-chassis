@@ -22,6 +22,24 @@
           "data": {
             "name": "NoteAlignedCmd"
           }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "New Path"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AprilTagAlignCmd"
+          }
         }
       ]
     }

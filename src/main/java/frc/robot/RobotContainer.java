@@ -40,6 +40,7 @@ public class RobotContainer {
 
                  //Register named commands
                 NamedCommands.registerCommand("NoteAlignedCmd", new NoteAlignCmd(swerveSubsystem));
+                NamedCommands.registerCommand("AprilTagAlignCmd", new AprilTagAlignCmd(swerveSubsystem));
 
                 // Build an auto chooser. This will use Commands.none() as the default option.
                 autoChooser = AutoBuilder.buildAutoChooser();
@@ -65,7 +66,7 @@ public class RobotContainer {
                 Trigger uDPad = m_controller.povUp();
                 Trigger dDPad = m_controller.povDown();
 
-                aButton.whileTrue(new AprilTagAlignCmd(swerveSubsystem));
+                aButton.onTrue(new AprilTagAlignCmd(swerveSubsystem));
                 bButton.onTrue(new NoteAlignCmd(swerveSubsystem));
 
                 /*
