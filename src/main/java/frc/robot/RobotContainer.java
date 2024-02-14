@@ -25,7 +25,6 @@ public class RobotContainer {
         private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
 
         private final SendableChooser<Command> autoChooser;
-        public final HashMap<String, Command> eventMap = new HashMap<>();
 
         private final Joystick driverJoytick = new Joystick(OIConstants.kDriverControllerPort);
         private final CommandXboxController m_controller = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
