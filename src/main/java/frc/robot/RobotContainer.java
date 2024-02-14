@@ -26,7 +26,8 @@ public class RobotContainer {
         private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
 
         private final SendableChooser<Command> autoChooser;
-        public final LEDs m_LEDs;
+
+        private final LEDs m_LEDs;
 
         private final Joystick driverJoytick = new Joystick(OIConstants.kDriverControllerPort);
         private final CommandXboxController m_controller = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
