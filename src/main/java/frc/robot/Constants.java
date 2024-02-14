@@ -4,6 +4,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
 
 public final class Constants {
@@ -119,5 +120,10 @@ public final class Constants {
 
     public static class OperatorConstants {
       public static final int kOperatorControllerPort = 1;
+    }
+
+    public static class LEDConstants {
+        public static final int LEDport = 0;
+        public static final int LEDlength = 12;
     }
 }

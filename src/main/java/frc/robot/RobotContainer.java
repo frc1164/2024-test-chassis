@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.LEDs;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.commands.AprilTagAlignCmd;
 import frc.robot.commands.NoteAlignCmd;
@@ -25,7 +26,7 @@ public class RobotContainer {
         private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
 
         private final SendableChooser<Command> autoChooser;
-        public final HashMap<String, Command> eventMap = new HashMap<>();
+        public final LEDs m_LEDs;
 
         private final Joystick driverJoytick = new Joystick(OIConstants.kDriverControllerPort);
         private final CommandXboxController m_controller = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
@@ -37,6 +38,8 @@ public class RobotContainer {
                                 () -> driverJoytick.getRawAxis(OIConstants.kDriverXAxis),
                                 () -> driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
                                 () -> !driverJoytick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
+                
+                m_LEDs = new LEDs();
 
                  //Register named commands
                 NamedCommands.registerCommand("NoteAlignedCmd", new NoteAlignCmd(swerveSubsystem));
