@@ -20,7 +20,7 @@ public enum ledMode {
   
 //Constructor for LEDs class
 public LEDs() {
-  setLEDmode(ledMode.GREEN);
+  setLEDmode(ledMode.RAINBOW);
   LED_init();
 }
 
