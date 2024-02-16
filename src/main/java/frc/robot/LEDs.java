@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+//import frc.robot.Constants.LEDConstants.ledMode;
 import frc.robot.Constants.LEDConstants;
 
 /** Add your docs here. */
@@ -14,18 +15,18 @@ public class LEDs {
 private AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(LEDConstants.LEDlength);
 private AddressableLED m_led = new AddressableLED(LEDConstants.LEDport);
 
-public enum ledMode {
+/*public enum ledMode {
   RED, GREEN, RAINBOW, TEAM, BLUE, PURPLE, YELLOW
-}
+}*/
   
 //Constructor for LEDs class
 public LEDs() {
-  setLEDmode(ledMode.RAINBOW);
+  setLEDmode(RobotContainer.LED_Chooser.getSelected());
   LED_init();
 }
 
-public void setLEDmode (ledMode mode) {
-  ledMode m_mode = mode;
+public void setLEDmode (LEDConstants.ledMode mode) {
+  LEDConstants.ledMode m_mode = mode;
 
 switch (m_mode) {
   case RED: setRED(0,LEDConstants.LEDlength);

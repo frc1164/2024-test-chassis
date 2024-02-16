@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.LEDs;
+import frc.robot.Constants.LEDConstants.ledMode;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.commands.AprilTagAlignCmd;
 import frc.robot.commands.NoteAlignCmd;
@@ -27,6 +28,9 @@ public class RobotContainer {
 
         private final SendableChooser<Command> autoChooser;
 
+        protected final static SendableChooser<ledMode> LED_Chooser=new SendableChooser<>();
+
+
         private final LEDs m_LEDs;
 
         private final Joystick driverJoytick = new Joystick(OIConstants.kDriverControllerPort);
@@ -40,7 +44,7 @@ public class RobotContainer {
                                 () -> driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
                                 () -> !driverJoytick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
                 
-                m_LEDs = new LEDs();
+                
 
                  //Register named commands
                 NamedCommands.registerCommand("NoteAlignedCmd", new NoteAlignCmd(swerveSubsystem));
@@ -54,6 +58,19 @@ public class RobotContainer {
 
                 SmartDashboard.putData("Auto Chooser", autoChooser);
                 configureButtonBindings();
+
+
+                LED_Chooser.setDefaultOption("RED", ledMode.RED);
+                LED_Chooser.addOption("BLUE", ledMode.BLUE);
+                LED_Chooser.addOption("PURPLE", ledMode.PURPLE);
+                LED_Chooser.addOption("GREEN", ledMode.GREEN);
+                LED_Chooser.addOption("RAINBOW", ledMode.RAINBOW);
+                LED_Chooser.addOption("YELLOW", ledMode.YELLOW);
+          
+
+                m_LEDs = new LEDs();
+
+
         }
 
         private void configureButtonBindings() {
