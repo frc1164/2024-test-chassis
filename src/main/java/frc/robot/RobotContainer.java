@@ -15,6 +15,7 @@ import frc.robot.commands.NoteAlignCmd;
 import frc.robot.subsystems.SwerveSubsystem;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.DriveAndPickupNoteCmd;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import java.util.HashMap;
@@ -72,7 +73,7 @@ public class RobotContainer {
                  */
 
                 new JoystickButton(m_driveController, 1).onTrue(new InstantCommand(() -> swerveSubsystem.zeroHeading()));
-
+                xButton.whileTrue(new DriveAndPickupNoteCmd(swerveSubsystem));
                 
         }
 
