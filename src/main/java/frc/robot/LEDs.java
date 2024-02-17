@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 //import frc.robot.Constants.LEDConstants.ledMode;
 import frc.robot.Constants.LEDConstants;
 
+
+
 /** Add your docs here. */
 public class LEDs {
       /** Creates a new LED. */
@@ -45,6 +47,12 @@ switch (m_mode) {
   break;
   default:break;
 }
+}
+
+public void setColor(){ 
+ setLEDmode(RobotContainer.LED_Chooser.getSelected());
+ m_led.setData(m_ledBuffer);
+
 }
 
 private void setRED(int startPos, int Length) {

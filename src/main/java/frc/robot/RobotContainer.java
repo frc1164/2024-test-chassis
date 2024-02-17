@@ -20,8 +20,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
-import java.util.HashMap;
-
 public class RobotContainer {
 
         private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
@@ -31,7 +29,7 @@ public class RobotContainer {
         protected final static SendableChooser<ledMode> LED_Chooser=new SendableChooser<>();
 
 
-        private final LEDs m_LEDs;
+        public final LEDs m_LEDs;
 
         private final Joystick driverJoytick = new Joystick(OIConstants.kDriverControllerPort);
         private final CommandXboxController m_controller = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
@@ -43,8 +41,6 @@ public class RobotContainer {
                                 () -> driverJoytick.getRawAxis(OIConstants.kDriverXAxis),
                                 () -> driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
                                 () -> !driverJoytick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
-                
-                
 
                  //Register named commands
                 NamedCommands.registerCommand("NoteAlignedCmd", new NoteAlignCmd(swerveSubsystem));
@@ -67,9 +63,9 @@ public class RobotContainer {
                 LED_Chooser.addOption("RAINBOW", ledMode.RAINBOW);
                 LED_Chooser.addOption("YELLOW", ledMode.YELLOW);
           
+                SmartDashboard.putData("LED COLORS", LED_Chooser);
 
                 m_LEDs = new LEDs();
-
 
         }
 
