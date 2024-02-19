@@ -36,17 +36,12 @@ public class RobotContainer {
        // private final XboxController m_drivedriveController = new XboxController(OIConstants.kDriverControllerPort);
         private final CommandXboxController m_controller = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
 
+        // Pathfinding stuff
         private final Pose2d targetPose = new Pose2d(10, 5, Rotation2d.fromDegrees(180));
         private final PathConstraints constraints = new PathConstraints(
         3.0, 4.0,
         Units.degreesToRadians(540), Units.degreesToRadians(720));
-        
-        private final Command pathfindingCommand = AutoBuilder.pathfindToPose(
-                        targetPose,
-                        constraints,
-                        0.0, // Goal end velocity in meters/sec
-                        0.0 // Rotation delay distance in meters. This is how far the robot should travel before attempting to rotate.
-                );
+        private final Command pathfindingCommand;
 
         public RobotContainer() {
                 swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
@@ -58,6 +53,12 @@ public class RobotContainer {
 
                 // Build an auto chooser. This will use Commands.none() as the default option.
                 autoChooser = AutoBuilder.buildAutoChooser();
+                pathfindingCommand = AutoBuilder.pathfindToPose(
+                        targetPose,
+                        constraints,
+                        0.0, // Goal end velocity in meters/sec
+                        0.0 // Rotation delay distance in meters. This is how far the robot should travel before attempting to rotate.
+                );
 
                 // Another option that allows you to specify the default auto by its name
                 // autoChooser = AutoBuilder.buildAutoChooser("My Default Auto");
@@ -82,7 +83,8 @@ public class RobotContainer {
 
                 aButton.whileTrue(new AprilTagAlignCmd(swerveSubsystem));
                 bButton.whileTrue(new NoteAlignCmd(swerveSubsystem));
-          //      yButton.whileTrue(new pathfindingCommand());
+     //           yButton.whileTrue(new pathfindingCommand(swerveSubsystem));
+
                 /*
                  * new JoystickButton(driverJoytick, 2).whenPressed(() ->
                  * swerveSubsystem.zeroHeading());
