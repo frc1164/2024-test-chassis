@@ -89,6 +89,13 @@ public final class Constants {
         public static final double kDriveGain = 3;
     }
 
+    public static final class LimeLightConstants {
+        public static final String kllShoot = "Limelight-shoot";
+        public static final String kllPickup = "Limelight-pickup";
+        public static final int kAprilTagPipeline = 0;
+        public static final int kNeuralNetworkPipeline = 1;
+    }
+
     public static final class AutoConstants {
         public static final double kMaxSpeedMetersPerSecond = DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
         public static final double kMaxAngularSpeedRadiansPerSecond = //
