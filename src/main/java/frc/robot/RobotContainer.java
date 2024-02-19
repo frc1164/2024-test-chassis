@@ -1,5 +1,8 @@
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -17,6 +20,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.path.PathConstraints;
+
 import java.util.HashMap;
 
 public class RobotContainer {
@@ -30,6 +35,18 @@ public class RobotContainer {
         private final Joystick m_driveController = new Joystick(OIConstants.kDriverControllerPort);
        // private final XboxController m_drivedriveController = new XboxController(OIConstants.kDriverControllerPort);
         private final CommandXboxController m_controller = new CommandXboxController(OperatorConstants.kOperatorControllerPort);
+
+        private final Pose2d targetPose = new Pose2d(10, 5, Rotation2d.fromDegrees(180));
+        private final PathConstraints constraints = new PathConstraints(
+        3.0, 4.0,
+        Units.degreesToRadians(540), Units.degreesToRadians(720));
+        
+        private final Command pathfindingCommand = AutoBuilder.pathfindToPose(
+                        targetPose,
+                        constraints,
+                        0.0, // Goal end velocity in meters/sec
+                        0.0 // Rotation delay distance in meters. This is how far the robot should travel before attempting to rotate.
+                );
 
         public RobotContainer() {
                 swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
@@ -65,15 +82,13 @@ public class RobotContainer {
 
                 aButton.whileTrue(new AprilTagAlignCmd(swerveSubsystem));
                 bButton.whileTrue(new NoteAlignCmd(swerveSubsystem));
-
+          //      yButton.whileTrue(new pathfindingCommand());
                 /*
                  * new JoystickButton(driverJoytick, 2).whenPressed(() ->
                  * swerveSubsystem.zeroHeading());
                  */
 
                 new JoystickButton(m_driveController, 1).onTrue(new InstantCommand(() -> swerveSubsystem.zeroHeading()));
-
-                
         }
 
         public Command getAutonomousCommand() {
