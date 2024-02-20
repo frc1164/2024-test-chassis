@@ -63,6 +63,7 @@ public class RobotContainer {
                 LED_Chooser.addOption("RAINBOW", ledMode.RAINBOW);
                 LED_Chooser.addOption("YELLOW", ledMode.YELLOW);
                 LED_Chooser.addOption("TEAM", ledMode.TEAM);
+                LED_Chooser.addOption("ALLIANCE", ledMode.ALLIANCE);
           
                 SmartDashboard.putData("LED COLORS", LED_Chooser);
 

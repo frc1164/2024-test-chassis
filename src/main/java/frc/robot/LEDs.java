@@ -4,8 +4,12 @@
 
 package frc.robot;
 
+import java.util.Optional;
+
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import frc.robot.Constants.LEDConstants.ledMode;
 import frc.robot.Constants.LEDConstants;
@@ -26,6 +30,7 @@ private AddressableLEDBuffer yellow_ledBuffer = new AddressableLEDBuffer(LEDCons
 private AddressableLEDBuffer team_ledBuffer = new AddressableLEDBuffer(LEDConstants.LEDlength);
 private AddressableLEDBuffer rainbow_ledBuffer = new AddressableLEDBuffer(LEDConstants.LEDlength);
 
+Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
 /*public enum ledMode {
   RED, GREEN, RAINBOW, TEAM, BLUE, PURPLE, YELLOW
 }*/
@@ -73,62 +78,24 @@ switch (m_mode) {
   break;
   case YELLOW: m_ledBuffer = yellow_ledBuffer;
   break;
+  case ALLIANCE: {
+     if (alliance.isPresent()) {
+            if (alliance.get() == Alliance.Blue) {
+              m_ledBuffer = blue_ledBuffer;
+            } if (alliance.get() == Alliance.Red) {
+              m_ledBuffer = red_ledBuffer;
+            }
+        }
+      }
   default:break;
 }
 }
 
-public void setColor (LEDConstants.ledMode mode){ 
- setLEDmode(RobotContainer.LED_Chooser.getSelected());
- m_led.setData(m_ledBuffer);
-
+public void setColor (LEDConstants.ledMode mode) { 
+  LEDConstants.ledMode m_led_mode = mode;
+  setLEDmode(m_led_mode);
+  m_led.setData(m_ledBuffer);
 }
-
-private void setRED(int startPos, int Length) {
-  for (var i = startPos; i < startPos + Length; i++) {
-    m_ledBuffer.setRGB(i, 255, 0, 0);
-  }
-}
-
-private void setGREEN(int startPos, int Length) {
-  for (var i = startPos; i < startPos + Length; i++) {
-    m_ledBuffer.setRGB(i, 0, 255, 0);
-  }
-}
-
-private void setBLUE(int startPos, int Length) {
-  for (var i = startPos; i < startPos + Length; i++) {
-    m_ledBuffer.setRGB(i, 0, 0, 255);
-  }
-}
-
-private void setPURPLE(int startPos, int Length) {
-  for (var i = startPos; i < startPos + Length; i++) {
-    m_ledBuffer.setRGB(i, 135, 0, 211);
-  }
-}
-
-private void setYELLOW(int startPos, int Length) {
-  for (var i = startPos; i < startPos + Length; i++) {
-    m_ledBuffer.setRGB(i, 255, 255, 0);
-  }
-}
-
-private void setTEAM(int startPos, int Length) {
-  for (var i = startPos; i < 8; i++) {
-    m_ledBuffer.setRGB(i, 135, 0, 211);
-  }
-  for (var i = 8; i < startPos + Length; i++) {
-    m_ledBuffer.setRGB(i, 255, 20, 0);
-  }
-}
-
-  private void rainbow(int startPos, int Length, double rainbowOffset, double hueModdifier) {
-    // if (startPos + Length < m_ledBuffer.getLength()) {
-      for (var i = startPos; i < startPos + Length; i++) {
-        final int hue = (int) (((((rainbowOffset + i) * 180) / Length) + hueModdifier) % 180);
-        m_ledBuffer.setHSV(i, (hue), 255, 128);
-      }
-    }
 
   public void LED_init() {
     m_led.setLength(m_ledBuffer.getLength());
