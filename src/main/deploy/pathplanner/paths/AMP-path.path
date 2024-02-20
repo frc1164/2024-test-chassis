@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.8298504772227422,
+        "y": 3.000314046341172
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.9297568062671726,
+        "y": 3.6798077294749523
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.8298504772227422,
+        "y": 7.501540874858198
+      },
+      "prevControl": {
+        "x": 1.8451860289080237,
+        "y": 6.471651988872382
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 90.32422183308877,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Eric's paths",
+  "previewStartingState": null,
+  "useDefaultConstraints": false
+}
