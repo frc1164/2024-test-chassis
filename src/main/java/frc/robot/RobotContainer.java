@@ -20,7 +20,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.GoalEndState;
 import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 import java.util.HashMap;
 
@@ -30,7 +34,6 @@ public class RobotContainer {
 
         SendableChooser<Command> m_chooser = new SendableChooser<>();
         private final SendableChooser<Command> autoChooser;
-        public final HashMap<String, Command> eventMap = new HashMap<>();
 
         private final Joystick m_driveController = new Joystick(OIConstants.kDriverControllerPort);
        // private final XboxController m_drivedriveController = new XboxController(OIConstants.kDriverControllerPort);
@@ -83,7 +86,38 @@ public class RobotContainer {
 
                 aButton.whileTrue(new AprilTagAlignCmd(swerveSubsystem));
                 bButton.whileTrue(new NoteAlignCmd(swerveSubsystem));
-     //           yButton.whileTrue(new pathfindingCommand(swerveSubsystem));
+
+                //Example binding for PathFinding to a specific pose
+                //NOTE: ALL NUMBERS ARE BOGUS!!! Change before attempting!!!
+                yButton.whileTrue(AutoBuilder.pathfindToPose(
+                        new Pose2d(14.0, 6.5, Rotation2d.fromDegrees(0)), 
+                        new PathConstraints(
+                          4.0, 4.0, 
+                          Units.degreesToRadians(360), Units.degreesToRadians(540)
+                        ), 
+                        0, 
+                        2.0
+                      ));
+
+                //Example binding for Pathfinding to the Start Point of a specific path TEST, and then run the Path
+                //NOTE: ALL NUMBERS ARE BOGUS!!! Change before attempting!!!
+                xButton.whileTrue(AutoBuilder.pathfindThenFollowPath(
+                        PathPlannerPath.fromPathFile("TEST"), 
+                        new PathConstraints(4.0, 4.0, Units.degreesToRadians(360), Units.degreesToRadians(540)), 
+                        0.0)
+                      );
+
+                //Example for putting up a button on the SmartDashboard to launch Pathfinding to a specific Pose
+                //NOTE: ALL NUMBERS ARE BOGUS!!! Change before attempting!!!
+                SmartDashboard.putData("Pathfind to SOURCE", AutoBuilder.pathfindToPose(
+                        new Pose2d(14.0, 6.5, Rotation2d.fromDegrees(0)), 
+                        new PathConstraints(
+                          4.0, 4.0, 
+                          Units.degreesToRadians(360), Units.degreesToRadians(540)
+                        ), 
+                        0, 
+                        2.0
+                      ));
 
                 /*
                  * new JoystickButton(driverJoytick, 2).whenPressed(() ->
