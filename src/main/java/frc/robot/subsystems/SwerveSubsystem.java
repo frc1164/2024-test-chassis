@@ -79,7 +79,9 @@ public class SwerveSubsystem extends SubsystemBase {
     // Create a new Field2d object for plotting pose and initialize LimeLight Network table instances
     private final Field2d m_field = new Field2d();
     private final NetworkTable pickupLLTable = NetworkTableInstance.getDefault().getTable(LimeLightConstants.kllPickup);
-    private final NetworkTable shooterLLTable = NetworkTableInstance.getDefault().getTable(LimeLightConstants.kllShoot);
+    //Uncomment when we get Limelights renamed
+    //private final NetworkTable pickupLLTable = NetworkTableInstance.getDefault().getTable(LimeLightConstants.kllPickup);
+    private final NetworkTable shooterLLTable = NetworkTableInstance.getDefault().getTable("limelight");
     private double tv;
     private double ta;
     private double tl;
