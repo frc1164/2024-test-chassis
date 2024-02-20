@@ -6,16 +6,25 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import frc.robot.Constants.LEDConstants.ledMode;
 import frc.robot.Constants.LEDConstants;
 
 
 
 /** Add your docs here. */
-public class LEDs {
+public class LEDs extends SubsystemBase {
       /** Creates a new LED. */
 private AddressableLEDBuffer m_ledBuffer = new AddressableLEDBuffer(LEDConstants.LEDlength);
 private AddressableLED m_led = new AddressableLED(LEDConstants.LEDport);
+
+private AddressableLEDBuffer red_ledBuffer = new AddressableLEDBuffer(LEDConstants.LEDlength);
+private AddressableLEDBuffer blue_ledBuffer = new AddressableLEDBuffer(LEDConstants.LEDlength);
+private AddressableLEDBuffer green_ledBuffer = new AddressableLEDBuffer(LEDConstants.LEDlength);
+private AddressableLEDBuffer purple_ledBuffer = new AddressableLEDBuffer(LEDConstants.LEDlength);
+private AddressableLEDBuffer yellow_ledBuffer = new AddressableLEDBuffer(LEDConstants.LEDlength);
+private AddressableLEDBuffer team_ledBuffer = new AddressableLEDBuffer(LEDConstants.LEDlength);
+private AddressableLEDBuffer rainbow_ledBuffer = new AddressableLEDBuffer(LEDConstants.LEDlength);
 
 /*public enum ledMode {
   RED, GREEN, RAINBOW, TEAM, BLUE, PURPLE, YELLOW
@@ -23,6 +32,25 @@ private AddressableLED m_led = new AddressableLED(LEDConstants.LEDport);
   
 //Constructor for LEDs class
 public LEDs() {
+  for (var i = 0; i < LEDConstants.LEDlength; i++) {
+    red_ledBuffer.setRGB(i, 255, 0, 0);
+    blue_ledBuffer.setRGB(i, 0, 0, 255);
+    green_ledBuffer.setRGB(i, 0, 255, 0);
+    purple_ledBuffer.setRGB(i, 135, 0, 211);
+    yellow_ledBuffer.setRGB(i, 255, 255, 0);
+  }
+
+  //Set Team 1164 colors
+  for (var i = 0; i < 6; i++) {
+    team_ledBuffer.setRGB(i, 135, 0, 211);
+    team_ledBuffer.setRGB(i+6, 255, 20, 0);
+  }
+
+  for (var i = 0; i < LEDConstants.LEDlength; i++) {
+    final int hue = (int) (((((12 + i) * 180) / LEDConstants.LEDlength) + 0) % 180);
+       rainbow_ledBuffer.setHSV(i, (hue), 255, 128);
+  }
+
   setLEDmode(RobotContainer.LED_Chooser.getSelected());
   LED_init();
 }
@@ -31,25 +59,25 @@ public void setLEDmode (LEDConstants.ledMode mode) {
   LEDConstants.ledMode m_mode = mode;
 
 switch (m_mode) {
-  case RED: setRED(0,LEDConstants.LEDlength);
+  case RED: m_ledBuffer = red_ledBuffer;
   break;
-  case GREEN: setGREEN(0, LEDConstants.LEDlength);
+  case GREEN: m_ledBuffer = green_ledBuffer;
   break;
-  case RAINBOW: rainbow(0, LEDConstants.LEDlength, 0, 0);
+  case RAINBOW: m_ledBuffer = rainbow_ledBuffer;
   break;
- // case TEAM: setTEAM(0, LEDConstants.LEDlength);
- //break;
-  case BLUE: setBLUE(0, LEDConstants.LEDlength);
+  case TEAM: m_ledBuffer = team_ledBuffer;
   break;
-  case PURPLE: setPURPLE(0, LEDConstants.LEDlength);
+  case BLUE: m_ledBuffer = blue_ledBuffer;
   break;
-  case YELLOW: setYELLOW(0, LEDConstants.LEDlength);
+  case PURPLE: m_ledBuffer = purple_ledBuffer;
+  break;
+  case YELLOW: m_ledBuffer = yellow_ledBuffer;
   break;
   default:break;
 }
 }
 
-public void setColor(){ 
+public void setColor (LEDConstants.ledMode mode){ 
  setLEDmode(RobotContainer.LED_Chooser.getSelected());
  m_led.setData(m_ledBuffer);
 
@@ -85,7 +113,6 @@ private void setYELLOW(int startPos, int Length) {
   }
 }
 
-/*
 private void setTEAM(int startPos, int Length) {
   for (var i = startPos; i < 8; i++) {
     m_ledBuffer.setRGB(i, 135, 0, 211);
@@ -93,7 +120,7 @@ private void setTEAM(int startPos, int Length) {
   for (var i = 8; i < startPos + Length; i++) {
     m_ledBuffer.setRGB(i, 255, 20, 0);
   }
-} */
+}
 
   private void rainbow(int startPos, int Length, double rainbowOffset, double hueModdifier) {
     // if (startPos + Length < m_ledBuffer.getLength()) {
@@ -109,4 +136,9 @@ private void setTEAM(int startPos, int Length) {
     m_led.start();
   } 
 
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+    setColor(RobotContainer.LED_Chooser.getSelected());
+  }
 }
