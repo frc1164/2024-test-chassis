@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3819377854087318,
-        "y": 5.507956166644462
+        "x": 2.89,
+        "y": 7.02
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3819377854087334,
-        "y": 5.507956166644462
+        "x": 2.2652382255668906,
+        "y": 6.8614003894674465
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.8778498211604524,
-        "y": 5.507956166644462
+        "x": 1.0542618156726409,
+        "y": 6.647698670074344
       },
       "prevControl": {
-        "x": 1.8778498211604524,
-        "y": 5.507956166644462
+        "x": 1.766600880316317,
+        "y": 6.804413264295952
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -119.24882633654695,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "New New Folder",
+  "folder": "Drive In",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
