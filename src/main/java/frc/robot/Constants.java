@@ -127,7 +127,7 @@ public final class Constants {
         public static final int LEDlength = 12;
 
         public enum ledMode {
-            RED, GREEN, RAINBOW, TEAM, BLUE, PURPLE, YELLOW
+            RED, GREEN, RAINBOW, TEAM, BLUE, PURPLE, YELLOW, ALLIANCE;
           }
     }
 }
