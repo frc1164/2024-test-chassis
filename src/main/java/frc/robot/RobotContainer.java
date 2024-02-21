@@ -66,15 +66,15 @@ public class RobotContainer {
                 Trigger uDPad = m_controller.povUp();
                 Trigger dDPad = m_controller.povDown();
 
-                aButton.whileTrue(new AprilTagAlignCmd(swerveSubsystem));
-                bButton.whileTrue(new NoteAlignCmd(swerveSubsystem));
+                aButton.onTrue(new AprilTagAlignCmd(swerveSubsystem));
+                bButton.onTrue(new NoteAlignCmd(swerveSubsystem));
 
                 //TEMPORARY example binding for PathFinding to a specific pose
                 //NOTE: ALL NUMBERS ARE BOGUS!!! Change before attempting!!!
                 yButton.whileTrue(AutoBuilder.pathfindToPose(
-                        new Pose2d(14.0, 6.5, Rotation2d.fromDegrees(0)), 
+                        new Pose2d(1.83, 3.0, Rotation2d.fromDegrees(0)), 
                         new PathConstraints(
-                          4.0, 4.0, 
+                          2.0, 2.0, 
                           Units.degreesToRadians(360), Units.degreesToRadians(540)
                         ), 
                         0, 
@@ -84,22 +84,28 @@ public class RobotContainer {
                 //TEMPORARY example binding for Pathfinding to the Start Point of a specific path, and then run the Path
                 //NOTE: ALL NUMBERS ARE BOGUS!!! Change before attempting!!!
                 xButton.whileTrue(AutoBuilder.pathfindThenFollowPath(
-                        PathPlannerPath.fromPathFile("TEST"), 
-                        new PathConstraints(4.0, 4.0, Units.degreesToRadians(360), Units.degreesToRadians(540)), 
+                        PathPlannerPath.fromPathFile("AMP-path"), 
+                        new PathConstraints(2.0, 2.0, Units.degreesToRadians(360), Units.degreesToRadians(540)), 
                         0.0)
                       );
 
                 //TEPORARY example for putting up a button on the SmartDashboard to launch Pathfinding to a specific Pose
                 //NOTE: ALL NUMBERS ARE BOGUS!!! Change before attempting!!!
                 SmartDashboard.putData("Pathfind to Pickup Pos", AutoBuilder.pathfindToPose(
-                        new Pose2d(14.0, 6.5, Rotation2d.fromDegrees(0)), 
+                        new Pose2d(1.83, 3.0, Rotation2d.fromDegrees(0)), 
                         new PathConstraints(
-                          4.0, 4.0, 
-                          Units.degreesToRadians(360), Units.degreesToRadians(540)
+                          1.0, 1.0, 
+                          Units.degreesToRadians(180), Units.degreesToRadians(270)
                         ), 
                         0, 
                         2.0
                       ));
+
+                SmartDashboard.putData("Pathfind to AMP Path", AutoBuilder.pathfindThenFollowPath(
+                        PathPlannerPath.fromPathFile("AMP-path"), 
+                        new PathConstraints(1.0, 1.0, Units.degreesToRadians(360), Units.degreesToRadians(540)), 
+                        0.0)
+                      );
 
                 /*
                  * new JoystickButton(driverJoytick, 2).whenPressed(() ->
