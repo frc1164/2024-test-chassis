@@ -14,7 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": " Path 1"
+            "pathName": " Path 1 test"
           }
         },
         {
@@ -38,7 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Path 2"
+            "pathName": "Path 2 test"
           }
         },
         {
