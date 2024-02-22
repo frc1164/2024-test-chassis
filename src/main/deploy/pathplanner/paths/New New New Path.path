@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.984339795647184,
-        "y": 4.128369484675891
+        "x": 4.593053865137686,
+        "y": 4.473539560488536
       },
       "isLocked": false,
       "linkedName": null
@@ -20,8 +20,8 @@
         "y": 5.75
       },
       "prevControl": {
-        "x": 6.978683359777022,
-        "y": 5.743911245490316
+        "x": 5.08490900006051,
+        "y": 3.3375884155477293
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Eric's paths",
+  "folder": null,
   "previewStartingState": null,
   "useDefaultConstraints": false
 }
