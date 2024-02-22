@@ -1,0 +1,31 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.8263133149866646,
+      "y": 6.690439013952964
+    },
+    "rotation": 59.43394494143663
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "High Drive Out"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": " High Drive In"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Score Leave Score HML",
+  "choreoAuto": false
+}

@@ -1,0 +1,100 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 6.0,
+        "y": 4.14
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.999999999999998,
+        "y": 4.14
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.848023687168352,
+        "y": 5.7660426974572045
+      },
+      "prevControl": {
+        "x": 7.98928123494427,
+        "y": 4.967130838734486
+      },
+      "nextControl": {
+        "x": 7.706766139392437,
+        "y": 6.564954556179923
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.810291221026394,
+        "y": 6.51871865341955
+      },
+      "prevControl": {
+        "x": 6.4699655851864435,
+        "y": 6.5939780828888805
+      },
+      "nextControl": {
+        "x": 5.150616856866344,
+        "y": 6.44345922395022
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.848023687168352,
+        "y": 7.17960485865478
+      },
+      "prevControl": {
+        "x": 7.848023687168352,
+        "y": 6.595037062995239
+      },
+      "nextControl": {
+        "x": 7.848023687168352,
+        "y": 7.53758488649053
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 5.810291221026394,
+        "y": 7.354005385036298
+      },
+      "prevControl": {
+        "x": 6.636398977570431,
+        "y": 7.565121811708663
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 12.757532160876785,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "Denier Posibilty",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

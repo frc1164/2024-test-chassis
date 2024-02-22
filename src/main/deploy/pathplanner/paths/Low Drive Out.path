@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 2.4789399449599934,
-        "y": 4.069031256064235
+        "x": 2.450786344413977,
+        "y": 4.1046482092964185
       },
       "prevControl": {
-        "x": 1.4789399449599934,
-        "y": 4.069031256064235
+        "x": 1.4507863444139768,
+        "y": 4.1046482092964185
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
   "reversed": false,
   "folder": "Drive Out",
   "previewStartingState": {
-    "rotation": -62.52556837372286,
+    "rotation": -61.26385756738269,
     "velocity": 0
   },
   "useDefaultConstraints": true
