@@ -54,7 +54,7 @@ public class RobotContainer {
 
         private void configureButtonBindings() {
 
-                // Sets buttons
+                // Sets buttons for Operator controller
                 Trigger aButton = m_controller.a();
                 Trigger bButton = m_controller.b();
                 Trigger yButton = m_controller.y();
