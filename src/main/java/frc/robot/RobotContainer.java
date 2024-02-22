@@ -112,6 +112,14 @@ public class RobotContainer {
                  * swerveSubsystem.zeroHeading());
                  */
 
+                //XBox controller to JoystickButton mapping. If we are gonna use these like this, they should be defined in Constants!!!
+                //0 = A
+                //1 = B
+                //2 = X
+                //3 = Y
+                //4 = Left bumper
+                //5 = Right bumper
+
                 new JoystickButton(m_driveController, 1).onTrue(new InstantCommand(() -> swerveSubsystem.zeroHeading()));
         }
 
