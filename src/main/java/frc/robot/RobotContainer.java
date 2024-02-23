@@ -55,42 +55,50 @@ public class RobotContainer {
         private void configureButtonBindings() {
 
                 // Sets buttons for Operator controller
-                Trigger aButton = m_controller.a();
-                Trigger bButton = m_controller.b();
-                Trigger yButton = m_controller.y();
-                Trigger xButton = m_controller.x();
-                Trigger lBumper = m_controller.leftBumper();
-                Trigger rBumper = m_controller.rightBumper();
-                Trigger lDPad = m_controller.povLeft();
-                Trigger rDPad = m_controller.povRight();
-                Trigger uDPad = m_controller.povUp();
-                Trigger dDPad = m_controller.povDown();
+                Trigger operator_aButton = m_controller.a();
+                Trigger operator_bButton = m_controller.b();
+                Trigger operator_yButton = m_controller.y();
+                Trigger operator_xButton = m_controller.x();
+                Trigger operator_lBumper = m_controller.leftBumper();
+                Trigger operator_rBumper = m_controller.rightBumper();
+                Trigger operator_lDPad = m_controller.povLeft();
+                Trigger operator_rDPad = m_controller.povRight();
+                Trigger operator_uDPad = m_controller.povUp();
+                Trigger operator_dDPad = m_controller.povDown();
 
-                aButton.onTrue(new AprilTagAlignCmd(swerveSubsystem));
-                bButton.onTrue(new NoteAlignCmd(swerveSubsystem));
+                operator_aButton.onTrue(new AprilTagAlignCmd(swerveSubsystem));
+                operator_bButton.onTrue(new NoteAlignCmd(swerveSubsystem));
 
-                //TEMPORARY example binding for PathFinding to a specific pose
-                //NOTE: ALL NUMBERS ARE BOGUS!!! Change before attempting!!!
-                yButton.whileTrue(AutoBuilder.pathfindToPose(
+                // Set button bindings for Driver controller. It would probably be better to implement this as an actual XBox controller.
+                // Meanshile, here is the XBox controller to JoystickButton mapping. If we are gonna do it like this, these numbers really should be defined in Constants!!!
+                //0 = A
+                //1 = B
+                //2 = X
+                //3 = Y
+                //4 = Left bumper
+                //5 = Right bumper 
+
+                // Press the B button to zero the heading
+                new JoystickButton(m_driveController, 1).onTrue(new InstantCommand(() -> swerveSubsystem.zeroHeading()));
+
+                // Press and hold the Y button to Pathfind to (1.83, 3.0, 0 degrees). Releasing button should cancel the command
+                new JoystickButton(m_driveController, 3).whileTrue(AutoBuilder.pathfindToPose(
                         new Pose2d(1.83, 3.0, Rotation2d.fromDegrees(0)), 
                         new PathConstraints(
-                          2.0, 2.0, 
-                          Units.degreesToRadians(360), Units.degreesToRadians(540)
+                          1.0, 1.0, 
+                          Units.degreesToRadians(180), Units.degreesToRadians(270)
                         ), 
                         0, 
                         2.0
                       ));
 
-                //TEMPORARY example binding for Pathfinding to the Start Point of a specific path, and then run the Path
-                //NOTE: ALL NUMBERS ARE BOGUS!!! Change before attempting!!!
-                xButton.whileTrue(AutoBuilder.pathfindThenFollowPath(
+                //Press and hold the X button to Pathfind to the start of the "AMP-Path" path. Releasing the button should cancel the command
+                new JoystickButton(m_driveController, 2).whileTrue(AutoBuilder.pathfindThenFollowPath(
                         PathPlannerPath.fromPathFile("AMP-path"), 
-                        new PathConstraints(2.0, 2.0, Units.degreesToRadians(360), Units.degreesToRadians(540)), 
-                        0.0)
-                      );
+                        new PathConstraints(1.0, 1.0, Units.degreesToRadians(180), Units.degreesToRadians(270)), 
+                        0.0));
 
-                //TEPORARY example for putting up a button on the SmartDashboard to launch Pathfinding to a specific Pose
-                //NOTE: ALL NUMBERS ARE BOGUS!!! Change before attempting!!!
+                //These SmartDashboard buttons do the same thing as the two above button bindings. They can be safely deleted once the controller button bindings work.
                 SmartDashboard.putData("Pathfind to Pickup Pos", AutoBuilder.pathfindToPose(
                         new Pose2d(1.83, 3.0, Rotation2d.fromDegrees(0)), 
                         new PathConstraints(
@@ -103,24 +111,9 @@ public class RobotContainer {
 
                 SmartDashboard.putData("Pathfind to AMP Path", AutoBuilder.pathfindThenFollowPath(
                         PathPlannerPath.fromPathFile("AMP-path"), 
-                        new PathConstraints(1.0, 1.0, Units.degreesToRadians(360), Units.degreesToRadians(540)), 
+                        new PathConstraints(1.0, 1.0, Units.degreesToRadians(180), Units.degreesToRadians(270)), 
                         0.0)
-                      );
-
-                /*
-                 * new JoystickButton(driverJoytick, 2).whenPressed(() ->
-                 * swerveSubsystem.zeroHeading());
-                 */
-
-                //XBox controller to JoystickButton mapping. If we are gonna use these like this, they should be defined in Constants!!!
-                //0 = A
-                //1 = B
-                //2 = X
-                //3 = Y
-                //4 = Left bumper
-                //5 = Right bumper
-
-                new JoystickButton(m_driveController, 1).onTrue(new InstantCommand(() -> swerveSubsystem.zeroHeading()));
+                      );       
         }
 
         public Command getAutonomousCommand() {
