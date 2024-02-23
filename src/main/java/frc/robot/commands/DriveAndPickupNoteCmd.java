@@ -29,10 +29,10 @@ public class DriveAndPickupNoteCmd extends Command {
   // Change these values as needed
   private double noteSizeThreshold = 0.5;                 // Minimum size of the NOTE for the robot to move to and pickup.
   private double overshootDistance = 0.5;                 // This is how many meters will be added to the distance to try to run over the NOTE.
-  private double LimeLightHeight = 0.95;                  // The LimeLight distance off the floor in meters, used to estimate distance to a NOTE.
+  private double LimeLightHeight = 0.71;                  // The LimeLight distance off the floor in meters, used to estimate distance to a NOTE.
   private double minimumNoteAngle = -21.5;                // The minimum angle for the LimeLight to calculate distance to the NOTE. Below this, the robot will estimate.
   private String limelighNetworkTableName = "limelight";  // Should be limelight-pickup later
-  private double translationP = 0.025;                    // P can be 0.05 after initial testing
+  private double translationP = 0.05;                     // P can be 0.05 after initial testing
   private double translationI = 0;
   private double translationD = 0;
 
@@ -79,6 +79,7 @@ public class DriveAndPickupNoteCmd extends Command {
     moveToNote = false; // Rotate to find NOTES, don't immeaditly try to move to one and pick it up.
     lastYaw = m_swerveSubsystem.getChassisYaw();
     lateralDistanceToNote = 0;
+    predictedLateralDistanceTraveled = 0;
     tOld = 0;
     tNew = 0;
   }
@@ -110,8 +111,8 @@ public class DriveAndPickupNoteCmd extends Command {
       // If the robot sees a NOTE and is reasonably pointed at it, begin moving towards the NOTE.
       if(ta >= noteSizeThreshold && Math.abs(tx) <= 3) {
         // Guess the distance until the robot encounters the NOTE. Begin moving towards the NOTE.
-        if(lateralDistanceToNote == 0 || ty >= minimumNoteAngle) {
-          distanceFromNote = Math.tan(Math.abs(ty)) * LimeLightHeight;
+        if((lateralDistanceToNote == 0 || ty >= minimumNoteAngle) && !moveToNote) {
+          distanceFromNote = Math.tan((90 - Math.abs(ty)) * Math.PI/180) * LimeLightHeight;
           moveToNote = true;
         }
 
@@ -134,13 +135,13 @@ public class DriveAndPickupNoteCmd extends Command {
     if(moveToNote == true) {        
       tOld = tNew;
       tNew = System.nanoTime() / Math.pow(10, 9);
-      
+      SmartDashboard.putNumber("tnew", tNew);
       // Predict distance traveled based on meters/second multiplied by time traveling at the velocity.
       if(tOld != 0 && tNew != 0) {
-        predictedLateralDistanceTraveled = predictedLateralDistanceTraveled + (longitudinalPidController.calculate(lateralDistanceToNote) * (tOld - tNew));
+        predictedLateralDistanceTraveled = predictedLateralDistanceTraveled + (m_swerveSubsystem.getRobotRelativeSpeeds().vxMetersPerSecond * (tNew - tOld));
         lateralDistanceToNote = distanceFromNote + overshootDistance - predictedLateralDistanceTraveled;
-      
-        chassisSpeeds = new ChassisSpeeds(longitudinalPidController.calculate(lateralDistanceToNote), lateralPidController.calculate(tx), 0);
+        SmartDashboard.putNumber("predictedLateralDistanceTraveled", predictedLateralDistanceTraveled);
+        chassisSpeeds = new ChassisSpeeds(longitudinalPidController.calculate(-lateralDistanceToNote), lateralPidController.calculate(tx), 0);
       }
     }
 

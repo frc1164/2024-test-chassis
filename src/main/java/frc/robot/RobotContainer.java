@@ -73,8 +73,8 @@ public class RobotContainer {
                  */
 
                 new JoystickButton(m_driveController, 1).onTrue(new InstantCommand(() -> swerveSubsystem.zeroHeading()));
-                xButton.whileTrue(new DriveAndPickupNoteCmd(swerveSubsystem));
-                
+                //xButton.whileTrue(new DriveAndPickupNoteCmd(swerveSubsystem));
+                new JoystickButton(m_driveController, 2).whileTrue(new DriveAndPickupNoteCmd(swerveSubsystem));
         }
 
         public Command getAutonomousCommand() {
