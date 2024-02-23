@@ -64,7 +64,7 @@ public final class Constants {
 
         public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = 109.86 * Math.PI/180.0;
         public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = 240.47 * Math.PI/180.0;
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = (237.92 - 45) * Math.PI/180.0;
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = 199.95 * Math.PI/180.0;
         public static final double kBackRightDriveAbsoluteEncoderOffsetRad = 191.16 * Math.PI/180.0;
 
         public static final double kPhysicalMaxSpeedMetersPerSecond = 5;
@@ -112,7 +112,7 @@ public final class Constants {
 
         public static final int kDriverYAxis = 1;
         public static final int kDriverXAxis = 0;
-        public static final int kDriverRotAxis = 5;
+        public static final int kDriverRotAxis = 4;
         public static final int kDriverFieldOrientedButtonIdx = 5;
 
         public static final double kDeadband = 0.1;

@@ -4,7 +4,11 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
+import com.ctre.phoenix6.signals.SensorDirectionValue;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -24,6 +28,7 @@ public class SwerveModule {
 
     /* private final AnalogInput absoluteEncoder; */ 
     private final CANcoder absoluteEncoder;
+    private final CANcoderConfiguration config;
 
     private final boolean absoluteEncoderReversed;
     private final double absoluteEncoderOffsetRad;
@@ -34,6 +39,7 @@ public class SwerveModule {
         this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
         this.absoluteEncoderReversed = absoluteEncoderReversed;
         absoluteEncoder = new CANcoder(absoluteEncoderId, "rio");
+        config = new CANcoderConfiguration();
                 
         driveMotor = new CANSparkMax(driveMotorId, MotorType.kBrushless);
         driveMotor.setIdleMode(IdleMode.kBrake);
@@ -46,6 +52,10 @@ public class SwerveModule {
 
         driveEncoder = driveMotor.getEncoder();
         turningEncoder = turningMotor.getEncoder();
+
+        config.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Signed_PlusMinusHalf;
+        config.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
+        absoluteEncoder.getConfigurator().apply(config);
 
         //turningEncoder.setPositionConversionFactor(turningEncoder.getCountsPerRevolution()/(2*Math.PI));
         //turningEncoder.setVelocityConversionFactor(turningEncoder.getCountsPerRevolution()/(2*Math.PI));
