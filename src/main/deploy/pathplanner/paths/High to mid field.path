@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 7.838844712095641,
-        "y": 7.4457951357634125
+        "x": 8.281967377058862,
+        "y": 7.167031966018283
       },
       "prevControl": {
-        "x": 6.838844712095641,
-        "y": 7.4457951357634125
+        "x": 7.281967377058862,
+        "y": 7.167031966018283
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "HML MID FIELD",
+  "folder": null,
   "previewStartingState": {
     "rotation": 58.93670669039318,
     "velocity": 0
