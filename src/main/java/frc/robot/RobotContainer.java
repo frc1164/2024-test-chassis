@@ -82,7 +82,7 @@ public class RobotContainer {
                 new JoystickButton(m_driveController, 1).onTrue(new InstantCommand(() -> swerveSubsystem.zeroHeading()));
 
                 // Press and hold the Y button to Pathfind to (1.83, 3.0, 0 degrees). Releasing button should cancel the command
-                new JoystickButton(m_driveController, 3).whileTrue(AutoBuilder.pathfindToPose(
+                operator_yButton.whileTrue(AutoBuilder.pathfindToPose(
                         new Pose2d(1.83, 3.0, Rotation2d.fromDegrees(0)), 
                         new PathConstraints(
                           1.0, 1.0, 
@@ -93,7 +93,7 @@ public class RobotContainer {
                       ));
 
                 //Press and hold the X button to Pathfind to the start of the "AMP-Path" path. Releasing the button should cancel the command
-                new JoystickButton(m_driveController, 2).whileTrue(AutoBuilder.pathfindThenFollowPath(
+                operator_xButton.whileTrue(AutoBuilder.pathfindThenFollowPath(
                         PathPlannerPath.fromPathFile("AMP-path"), 
                         new PathConstraints(1.0, 1.0, Units.degreesToRadians(180), Units.degreesToRadians(270)), 
                         0.0));
