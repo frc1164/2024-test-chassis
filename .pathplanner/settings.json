@@ -3,17 +3,16 @@
   "robotLength": 0.9,
   "holonomicMode": true,
   "pathFolders": [
-    "Drive In",
-    "Drive Out",
-    "Denier Posibilty",
-    "To blue line ",
-    "to mid field"
+    "HML Drive IN",
+    "HML Drive Out",
+    "HML MID FIELD",
+    "Mid notes"
   ],
   "autoFolders": [
-    "Leave HML",
-    "Shoot Mid Field HML",
-    "Score Leave HML",
-    "Score Leave Score HML"
+    "HML Shoot SP LEAVE",
+    "HML Shoot SP Leave Shoot SP",
+    "HML Shoot SP Mid field",
+    "HML Drive In Shoot SP"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,

@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3819377854087318,
-      "y": 5.507956166644462
+      "x": 0.71,
+      "y": 4.34
     },
-    "rotation": 0
+    "rotation": -57.74275191694803
   },
   "command": {
     "type": "sequential",
@@ -14,12 +14,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Mid Drive Out"
+            "pathName": "low to mid field"
           }
         }
       ]
     }
   },
-  "folder": "Score Leave HML",
+  "folder": "HML Shoot SP Mid field",
   "choreoAuto": false
 }

@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.71,
-      "y": 4.34
+      "x": 2.88,
+      "y": 5.51
     },
-    "rotation": -57.74275191694803
+    "rotation": 179.42890002279458
   },
   "command": {
     "type": "sequential",
@@ -14,12 +14,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "low to mid field"
+            "pathName": " Mid Drive In"
           }
         }
       ]
     }
   },
-  "folder": "Shoot Mid Field HML",
+  "folder": "HML Drive In Shoot SP",
   "choreoAuto": false
 }

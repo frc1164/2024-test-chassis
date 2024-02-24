@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3952042110521514,
-        "y": 5.545747295712128
+        "x": 3.0120909314571827,
+        "y": 6.511225119454518
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.3952042110521523,
-        "y": 5.545747295712128
+        "x": 2.613922488900611,
+        "y": 6.511225119454518
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.8913771479041297,
-        "y": 5.545747295712128
+        "x": 1.8878506230621577,
+        "y": 7.06163443710625
       },
       "prevControl": {
-        "x": 1.8913771479041297,
-        "y": 5.545747295712128
+        "x": 2.5553683061717036,
+        "y": 6.8157068696448375
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -90.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "HML Drive Out",
+  "folder": null,
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

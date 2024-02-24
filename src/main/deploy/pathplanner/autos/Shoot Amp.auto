@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.38,
-      "y": 5.51
+      "x": 2,
+      "y": 2
     },
     "rotation": 0
   },
@@ -14,12 +14,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Mid to mid field"
+            "pathName": "Shoot Amp "
           }
         }
       ]
     }
   },
-  "folder": "Shoot Mid Field HML",
+  "folder": null,
   "choreoAuto": false
 }

@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.8263133149866646,
-      "y": 6.690439013952964
+      "x": 0.7123390646436764,
+      "y": 4.339720100628832
     },
-    "rotation": 58.870279749303585
+    "rotation": -61.125241785576215
   },
   "command": {
     "type": "sequential",
@@ -14,12 +14,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "High Drive Out"
+            "pathName": "Low Drive Out"
           }
         }
       ]
     }
   },
-  "folder": "Score Leave HML",
+  "folder": "HML Shoot SP LEAVE",
   "choreoAuto": false
 }

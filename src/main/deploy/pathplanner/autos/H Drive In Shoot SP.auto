@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3819377854087318,
-      "y": 5.507956166644462
+      "x": 2.89,
+      "y": 7.02
     },
-    "rotation": 0
+    "rotation": -0.320861180309675
   },
   "command": {
     "type": "sequential",
@@ -14,12 +14,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Mid Drive Out"
+            "pathName": " High Drive In"
           }
         }
       ]
     }
   },
-  "folder": "Leave HML",
+  "folder": "HML Drive In Shoot SP",
   "choreoAuto": false
 }
