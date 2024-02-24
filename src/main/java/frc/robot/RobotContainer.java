@@ -67,12 +67,12 @@ public class RobotContainer {
                 Trigger operator_dDPad = m_controller.povDown();
 
                 operator_aButton.onTrue(new AprilTagAlignCmd(swerveSubsystem));
-                operator_bButton.onTrue(new NoteAlignCmd(swerveSubsystem));
+                // operator_bButton.onTrue(new NoteAlignCmd(swerveSubsystem));
 
                 // Set button bindings for Driver controller. It would probably be better to implement this as an actual XBox controller.
                 // Meanshile, here is the XBox controller to JoystickButton mapping. If we are gonna do it like this, these numbers really should be defined in Constants!!!
                 //0 = A
-                //1 = B
+                //1 = B 
                 //2 = X
                 //3 = Y
                 //4 = Left bumper
@@ -80,6 +80,17 @@ public class RobotContainer {
 
                 // Press the B button to zero the heading
                 new JoystickButton(m_driveController, 1).onTrue(new InstantCommand(() -> swerveSubsystem.zeroHeading()));
+
+                // Press and hold the B button to Pathfind to (1.83, 3.0, 0 degrees). Releasing button should cancel the command
+                operator_bButton.whileTrue(AutoBuilder.pathfindToPose(
+                        new Pose2d(15.75, 1.,73 Rotation2d.fromDegrees(0)), 
+                        new PathConstraints(
+                          1.0, 1.0, 
+                          Units.degreesToRadians(180), Units.degreesToRadians(270)
+                        ), 
+                        0, 
+                        2.0
+                      ));
 
                 // Press and hold the Y button to Pathfind to (1.83, 3.0, 0 degrees). Releasing button should cancel the command
                 operator_yButton.whileTrue(AutoBuilder.pathfindToPose(
