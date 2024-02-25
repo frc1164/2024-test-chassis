@@ -14,6 +14,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTable;
@@ -89,7 +90,7 @@ public class SwerveSubsystem extends SubsystemBase {
     private double ta;
     private double tl;
     //private LimelightHelpers.LimelightResults results;
-    private LimelightHelpers.PoseEstimate limelightMeasurement
+    private LimelightHelpers.PoseEstimate limelightMeasurement;
     
     Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
 
@@ -151,14 +152,15 @@ public class SwerveSubsystem extends SubsystemBase {
         return Rotation2d.fromDegrees(getHeading());
     }
 
+    
     public Pose2d getPose() {
-        return odometer.getEstimatedPosition();
+        return m_poseEstimator.getEstimatedPosition();
     }
 
     public void resetOdometry(Pose2d pose) {
         SwerveModulePosition[] state = { frontLeft.getPosition(), frontRight.getPosition(), backLeft.getPosition(),
                 backRight.getPosition() };
-        odometer.resetPosition(getRotation2d(), state, pose);
+        //odometer.resetPosition(getRotation2d(), state, pose);
     }
 
     public ChassisSpeeds getRobotRelativeSpeeds() {
@@ -191,16 +193,17 @@ public class SwerveSubsystem extends SubsystemBase {
 
         //results = LimelightHelpers.getLatestResults("Limelight-shoot");
 
-        limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-pickup")
+        limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-pickup");
 
     }
 
+    /* 
     public boolean isGoodTarget() {
-        return ta >= 0.5  || results.targetingResults.targets_Fiducials.length > 1 && ta>0.4;
+        //return ta >= 0.5  || results.targetingResults.targets_Fiducials.length > 1 && ta>0.4;
     }
     public boolean hasTargets() {
-        return tv == 1;
-    }
+        //return tv == 1;
+    }*/
 
     public Pose2d getVisionEstimatedPose() {
 
@@ -309,8 +312,8 @@ public class SwerveSubsystem extends SubsystemBase {
 
         updateValues();
 
-        SmartDashboard.putBoolean("Vision Identified Tag", hasTargets());
-        SmartDashboard.putBoolean("Is good target", isGoodTarget());
+        SmartDashboard.putBoolean("Vision Identified Tag", limelightMeasurement.tagCount > 0);
+        //SmartDashboard.putBoolean("Is good target", isGoodTarget());
 
         /*
 
@@ -335,7 +338,7 @@ public class SwerveSubsystem extends SubsystemBase {
             }
         */
 
-        updatePoseEstimatorWithVisionBotPose()
+        updatePoseEstimatorWithVisionBotPose();
 
 
         SmartDashboard.putNumber("Robot Heading", getHeading());

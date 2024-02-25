@@ -83,7 +83,7 @@ public class RobotContainer {
 
                 // Press and hold the B button to Pathfind to (1.83, 3.0, 0 degrees). Releasing button should cancel the command
                 operator_bButton.whileTrue(AutoBuilder.pathfindToPose(
-                        new Pose2d(15.75, 1.,73 Rotation2d.fromDegrees(0)), 
+                        new Pose2d(15.75, 1.73, Rotation2d.fromDegrees(0)), 
                         new PathConstraints(
                           1.0, 1.0, 
                           Units.degreesToRadians(180), Units.degreesToRadians(270)
