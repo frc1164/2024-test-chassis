@@ -14,6 +14,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.VisionConstants;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class DriveAndPickupNoteCmd extends Command {
@@ -31,8 +32,8 @@ public class DriveAndPickupNoteCmd extends Command {
   private double overshootDistance = 0.5;                 // This is how many meters will be added to the distance to try to run over the NOTE.
   private double LimeLightHeight = 0.71;                  // The LimeLight distance off the floor in meters, used to estimate distance to a NOTE.
   private double minimumNoteAngle = -21.5;                // The minimum angle for the LimeLight to calculate distance to the NOTE. Below this, the robot will estimate.
-  private String limelighNetworkTableName = "limelight";  // Should be limelight-pickup later
-  private double translationP = 0.05;                     // P can be 0.05 after initial testing
+  private String limelighNetworkTableName = VisionConstants.kPickupLimelightNetworkTableName;
+  private double translationP = 0.05;                      // P can be 0.05 after initial testing
   private double translationI = 0;
   private double translationD = 0;
 
@@ -104,12 +105,12 @@ public class DriveAndPickupNoteCmd extends Command {
       chassisSpeeds = new ChassisSpeeds(0, 0, rotationalPidController.calculate(degreesToRotate));
 
       // If the robot sees a NOTE that is close and isn't pointed at it, stop the full-circle scan and point the robot at the NOTE.
-      if(ta >= noteSizeThreshold && Math.abs(tx) > 3) {
+      if(ta >= noteSizeThreshold && Math.abs(tx) > 5) {
         degreesToRotate = tx;
       }
       
       // If the robot sees a NOTE and is reasonably pointed at it, begin moving towards the NOTE.
-      if(ta >= noteSizeThreshold && Math.abs(tx) <= 3) {
+      if(ta >= noteSizeThreshold && Math.abs(tx) <= 5) {
         // Guess the distance until the robot encounters the NOTE. Begin moving towards the NOTE.
         if((lateralDistanceToNote == 0 || ty >= minimumNoteAngle) && !moveToNote) {
           distanceFromNote = Math.tan((90 - Math.abs(ty)) * Math.PI/180) * LimeLightHeight;

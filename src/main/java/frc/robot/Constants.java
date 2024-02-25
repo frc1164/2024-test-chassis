@@ -129,4 +129,9 @@ public final class Constants {
     public static class OperatorConstants {
       public static final int kOperatorControllerPort = 1;
     }
+
+    public static class VisionConstants {
+        public static final String kPickupLimelightNetworkTableName = "limelight-pickup";
+        public static final String kShootLimelightNetworkTableName = "limelight-shoot";
+    }
 }
