@@ -73,7 +73,10 @@ public class SwerveSubsystem extends SubsystemBase {
     private final Pose2d poseThis = new Pose2d();
     private final SwerveModulePosition[] Position = { frontLeft.getPosition(), frontRight.getPosition(),
             backLeft.getPosition(), backRight.getPosition() };
-    private final SwerveDrivePoseEstimator odometer = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
+    //private final SwerveDrivePoseEstimator odometer = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
+            //new Rotation2d(0), Position, poseThis);
+
+    private final SwerveDrivePoseEstimator m_poseEstimator = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
             new Rotation2d(0), Position, poseThis);
 
     // Create a new Field2d object for plotting pose and initialize LimeLight Network table instances
@@ -85,7 +88,8 @@ public class SwerveSubsystem extends SubsystemBase {
     private double tv;
     private double ta;
     private double tl;
-    private LimelightHelpers.LimelightResults results;
+    //private LimelightHelpers.LimelightResults results;
+    private LimelightHelpers.PoseEstimate limelightMeasurement
     
     Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
 
@@ -181,11 +185,13 @@ public class SwerveSubsystem extends SubsystemBase {
     public void updateValues() {
 
         //TODO: Maybe switch these to use the limelight helper sub
-        tv = shooterLLTable.getEntry("tv").getDouble(0);
-        ta = shooterLLTable.getEntry("ta").getDouble(0);
-        tl = shooterLLTable.getEntry("tl").getDouble(40);
+        //tv = shooterLLTable.getEntry("tv").getDouble(0);
+        //ta = shooterLLTable.getEntry("ta").getDouble(0);
+        //tl = shooterLLTable.getEntry("tl").getDouble(40);
 
-        results = LimelightHelpers.getLatestResults("Limelight-shoot");
+        //results = LimelightHelpers.getLatestResults("Limelight-shoot");
+
+        limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight")
 
     }
 
@@ -196,7 +202,7 @@ public class SwerveSubsystem extends SubsystemBase {
         return tv == 1;
     }
 
-     public Pose2d getVisionEstimatedPose() {
+    public Pose2d getVisionEstimatedPose() {
 
         double[] bot_pose = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
         double bot_x, bot_y, rotation_z;
@@ -223,6 +229,59 @@ public class SwerveSubsystem extends SubsystemBase {
                 Rotation2d.fromDegrees(rotation_z));
     }
 
+
+    public void updatePoseEstimatorWithVisionBotPose() {
+        //PoseLatency visionBotPose = m_visionSystem.getPoseLatency();
+        Pose2d visionPose = getVisionEstimatedPose();
+        // invalid LL data
+        //if (visionBotPose.pose2d.getX() == 0.0) {
+        //    return;
+        //}
+        
+        if (visionPose.getX() == 0.0) {
+            return;
+        }
+
+        // distance from current pose to vision estimated pose
+        //double poseDifference = m_poseEstimator.getEstimatedPosition().getTranslation()
+        //    .getDistance(visionBotPose.pose2d.getTranslation());
+
+        double poseDifference = m_poseEstimator.getEstimatedPosition().getTranslation()
+            .getDistance(visionPose.getTranslation());
+
+
+        if (limelightMeasurement.tagCount > 0) {
+            double xyStds;
+            double degStds;
+            // multiple targets detected
+            if (limelightMeasurement.tagCount >= 2) {
+                xyStds = 0.5;
+                degStds = 6;
+            }
+            // 1 target with large area and close to estimated pose
+            else if (limelightMeasurement.avgTagArea > 0.8 && poseDifference < 0.5) {
+                xyStds = 1.0;
+                degStds = 12;
+            }
+            // 1 target farther away and estimated pose is close
+            else if (limelightMeasurement.avgTagArea > 0.1 && poseDifference < 0.3) {
+                xyStds = 2.0;
+                degStds = 30;
+            }
+            // conditions don't match to add a vision measurement
+            else {
+                return;
+            }
+
+            m_poseEstimator.setVisionMeasurementStdDevs(
+                VecBuilder.fill(xyStds, xyStds, Units.degreesToRadians(degStds)));
+            m_poseEstimator.addVisionMeasurement(visionPose,
+                Timer.getFPGATimestamp() - Units.millisecondsToSeconds(limelightMeasurement.latency));
+        }
+    }
+
+
+
     public double getLatency() {
         return Timer.getFPGATimestamp() - Units.millisecondsToSeconds(tl);
 
@@ -239,7 +298,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
         SwerveModulePosition[] positions = { frontLeft.getPosition(), frontRight.getPosition(), backLeft.getPosition(),
                 backRight.getPosition() };
-        odometer.update(getRotation2d(), positions);
+        m_poseEstimator.update(getRotation2d(), positions);
 
         // The .name() method seems to have been removed from DriverStation.getAlliance. So this needs a switch statement or something
         //SmartDashboard.putString("Alliance Color", DriverStation.getAlliance().name());
@@ -252,6 +311,8 @@ public class SwerveSubsystem extends SubsystemBase {
 
         SmartDashboard.putBoolean("Vision Identified Tag", hasTargets());
         SmartDashboard.putBoolean("Is good target", isGoodTarget());
+
+        /*
 
         // if the limelight has a target
         if (hasTargets()) {   //Originally if (hasTargets() && isGoodTarget()). isGoodTarget() never proves true for some reason
@@ -272,6 +333,10 @@ public class SwerveSubsystem extends SubsystemBase {
             odometer.addVisionMeasurement(visionPose, getLatency());
                 
             }
+        */
+
+        updatePoseEstimatorWithVisionBotPose()
+
 
         SmartDashboard.putNumber("Robot Heading", getHeading());
         SmartDashboard.putString("Robot Rotation", getPose().getRotation().toString());
