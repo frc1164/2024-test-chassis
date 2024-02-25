@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7123390646436764,
-      "y": 4.339720100628832
+      "x": 1.3819377854087318,
+      "y": 5.507956166644462
     },
-    "rotation": -60.65379129252926
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -14,18 +14,18 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Low Drive Out"
+            "pathName": "Mid Drive Out"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": " Low Drive In"
+            "pathName": " Mid Drive In"
           }
         }
       ]
     }
   },
-  "folder": "HML Shoot SP Leave Shoot SP",
+  "folder": "HML 2-note auto",
   "choreoAuto": false
 }
