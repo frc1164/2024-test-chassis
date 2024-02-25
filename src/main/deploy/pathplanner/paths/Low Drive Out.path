@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "HML Drive Out",
+  "folder": null,
   "previewStartingState": {
     "rotation": -61.26385756738269,
     "velocity": 0

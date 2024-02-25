@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 2.89,
-        "y": 7.019989560174959
+        "x": 2.4382599407138885,
+        "y": 6.991369417831561
       },
       "prevControl": {
-        "x": 1.8900000000000001,
-        "y": 7.019989560174959
+        "x": 1.4382599407138885,
+        "y": 6.991369417831561
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "HML Drive Out",
+  "folder": null,
   "previewStartingState": {
     "rotation": 59.036243467926454,
     "velocity": 0
