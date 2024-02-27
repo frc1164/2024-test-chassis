@@ -30,7 +30,7 @@ public class AprilTagAlignCmd extends Command {
 
     lateraPidController.setSetpoint(0);
 
-    addRequirements(swerveSubsystem);
+    addRequirements(this.m_swerveSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -63,11 +63,15 @@ public class AprilTagAlignCmd extends Command {
   @Override
   public void end(boolean interrupted) {
     SmartDashboard.putBoolean("AprilTagAlign", false);
+    limelighNetworkTable.getEntry("pipeline").setNumber(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(tx <= 2) {
+      return true;
+    }
     return false;
   }
 }

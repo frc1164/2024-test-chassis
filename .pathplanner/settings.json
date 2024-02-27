@@ -1,0 +1,22 @@
+{
+  "robotWidth": 0.76,
+  "robotLength": 0.76,
+  "holonomicMode": true,
+  "pathFolders": [
+    "HML Drive IN",
+    "HML Drive Out",
+    "HML MID FIELD",
+    "Mid notes"
+  ],
+  "autoFolders": [
+    "HML Drive In Shoot SP",
+    "HML Shoot SP LEAVE",
+    "HML 2-note auto",
+    "HML Shoot SP Mid field"
+  ],
+  "defaultMaxVel": 3.0,
+  "defaultMaxAccel": 3.0,
+  "defaultMaxAngVel": 540.0,
+  "defaultMaxAngAccel": 720.0,
+  "maxModuleSpeed": 4.5
+}

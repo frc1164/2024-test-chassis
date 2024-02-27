@@ -4,6 +4,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
 
 public final class Constants {
@@ -63,7 +64,7 @@ public final class Constants {
 
         public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = 109.86 * Math.PI/180.0;
         public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = 240.47 * Math.PI/180.0;
-        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = 199.95 * Math.PI/180.0;
+        public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = 334.86 * Math.PI/180.0;
         public static final double kBackRightDriveAbsoluteEncoderOffsetRad = 191.16 * Math.PI/180.0;
 
         public static final double kPhysicalMaxSpeedMetersPerSecond = 5;
@@ -119,5 +120,14 @@ public final class Constants {
 
     public static class OperatorConstants {
       public static final int kOperatorControllerPort = 1;
+    }
+
+    public static class LEDConstants {
+        public static final int LEDport = 0;
+        public static final int LEDlength = 12;
+
+        public enum ledMode {
+            RED, GREEN, RAINBOW, TEAM, BLUE, PURPLE, YELLOW, ALLIANCE;
+          }
     }
 }

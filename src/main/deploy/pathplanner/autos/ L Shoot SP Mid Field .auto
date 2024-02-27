@@ -1,0 +1,25 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.71,
+      "y": 4.34
+    },
+    "rotation": -57.74275191694803
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "low to mid field"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "HML Shoot SP Mid field",
+  "choreoAuto": false
+}
