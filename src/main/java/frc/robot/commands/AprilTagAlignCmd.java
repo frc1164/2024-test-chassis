@@ -12,6 +12,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.LimeLightConstants;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class AprilTagAlignCmd extends Command {
@@ -26,17 +27,17 @@ public class AprilTagAlignCmd extends Command {
     this.m_swerveSubsystem = swerveSubsystem;
     this.lateraPidController = new PIDController(0.05, 0, 0);
 
-    this.limelighNetworkTable = NetworkTableInstance.getDefault().getTable("limelight");
+    this.limelighNetworkTable = NetworkTableInstance.getDefault().getTable(LimeLightConstants.kllShoot);
 
     lateraPidController.setSetpoint(0);
 
-    addRequirements(swerveSubsystem);
+    addRequirements(this.m_swerveSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    limelighNetworkTable.getEntry("pipeline").setNumber(0);
+    limelighNetworkTable.getEntry("pipeline").setNumber(LimeLightConstants.kAprilTagPipeline);
     SmartDashboard.putBoolean("AprilTagAlign", true);
   }
 
@@ -63,11 +64,15 @@ public class AprilTagAlignCmd extends Command {
   @Override
   public void end(boolean interrupted) {
     SmartDashboard.putBoolean("AprilTagAlign", false);
+    limelighNetworkTable.getEntry("pipeline").setNumber(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if(tx <= 2) {
+      return true;
+    }
     return false;
   }
 }

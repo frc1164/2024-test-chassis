@@ -4,6 +4,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 
 
 public final class Constants {
@@ -98,6 +99,13 @@ public final class Constants {
         public static final double kDriveGain = 3;
     }
 
+    public static final class LimeLightConstants {
+        public static final String kllShoot = "Limelight-shoot";
+        public static final String kllPickup = "Limelight-pickup";
+        public static final int kAprilTagPipeline = 0;
+        public static final int kNeuralNetworkPipeline = 1;
+    }
+
     public static final class AutoConstants {
         public static final double kMaxSpeedMetersPerSecond = DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
         public static final double kMaxAngularSpeedRadiansPerSecond = //
@@ -133,5 +141,14 @@ public final class Constants {
     public static class VisionConstants {
         public static final String kPickupLimelightNetworkTableName = "limelight-pickup";
         public static final String kShootLimelightNetworkTableName = "limelight-shoot";
+    }
+}
+    public static class LEDConstants {
+        public static final int LEDport = 0;
+        public static final int LEDlength = 12;
+
+        public enum ledMode {
+            RED, GREEN, RAINBOW, TEAM, BLUE, PURPLE, YELLOW, ALLIANCE;
+          }
     }
 }

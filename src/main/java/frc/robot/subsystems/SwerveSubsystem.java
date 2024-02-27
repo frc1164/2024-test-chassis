@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.Optional;
+
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
@@ -8,17 +10,27 @@ import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.LimeLightConstants;
+import frc.robot.LimelightHelpers;
 import edu.wpi.first.wpilibj.SerialPort;
 
 public class SwerveSubsystem extends SubsystemBase {
@@ -62,8 +74,27 @@ public class SwerveSubsystem extends SubsystemBase {
     private final Pose2d poseThis = new Pose2d();
     private final SwerveModulePosition[] Position = { frontLeft.getPosition(), frontRight.getPosition(),
             backLeft.getPosition(), backRight.getPosition() };
-    private final SwerveDrivePoseEstimator odometer = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
+    //private final SwerveDrivePoseEstimator odometer = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
+            //new Rotation2d(0), Position, poseThis);
+
+    private final SwerveDrivePoseEstimator m_poseEstimator = new SwerveDrivePoseEstimator(DriveConstants.kDriveKinematics,
             new Rotation2d(0), Position, poseThis);
+
+    // Create a new Field2d object for plotting pose and initialize LimeLight Network table instances
+    private final Field2d m_field = new Field2d();
+    private final NetworkTable pickupLLTable = NetworkTableInstance.getDefault().getTable(LimeLightConstants.kllPickup);
+    //Uncomment when we get Limelights renamed
+    //private final NetworkTable pickupLLTable = NetworkTableInstance.getDefault().getTable(LimeLightConstants.kllPickup);
+    private final NetworkTable shooterLLTable = NetworkTableInstance.getDefault().getTable("limelight");
+    private double tv;
+    private double ta;
+    private double tl;
+    private boolean isUpdating = false;
+    private boolean gate = true;
+    //private LimelightHelpers.LimelightResults results;
+    private LimelightHelpers.PoseEstimate limelightMeasurement;
+    
+    Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
 
     // Create two new SimpleMotorFeedforwards (one right and one left) with gains
     // kS, kV, and kA from SysID characterization
@@ -123,14 +154,15 @@ public class SwerveSubsystem extends SubsystemBase {
         return Rotation2d.fromDegrees(getHeading());
     }
 
+    
     public Pose2d getPose() {
-        return odometer.getEstimatedPosition();
+        return m_poseEstimator.getEstimatedPosition();
     }
 
     public void resetOdometry(Pose2d pose) {
         SwerveModulePosition[] state = { frontLeft.getPosition(), frontRight.getPosition(), backLeft.getPosition(),
                 backRight.getPosition() };
-        odometer.resetPosition(getRotation2d(), state, pose);
+        m_poseEstimator.resetPosition(getRotation2d(), state, pose);
     }
 
     public ChassisSpeeds getRobotRelativeSpeeds() {
@@ -154,14 +186,184 @@ public class SwerveSubsystem extends SubsystemBase {
         return states;
     }
 
+    public void updateValues() {
+
+        //TODO: Maybe switch these to use the limelight helper sub
+        //tv = shooterLLTable.getEntry("tv").getDouble(0);
+        //ta = shooterLLTable.getEntry("ta").getDouble(0);
+        //tl = shooterLLTable.getEntry("tl").getDouble(40);
+
+        //results = LimelightHelpers.getLatestResults("Limelight-shoot");
+
+        limelightMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight-pickup");
+
+    }
+
+    /* 
+    public boolean isGoodTarget() {
+        //return ta >= 0.5  || results.targetingResults.targets_Fiducials.length > 1 && ta>0.4;
+    }
+    public boolean hasTargets() {
+        //return tv == 1;
+    }*/
+
+    public Pose2d getVisionEstimatedPose() {
+
+        double[] bot_pose = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+        double bot_x, bot_y, rotation_z;
+
+        bot_pose = shooterLLTable
+                    .getEntry("botpose_wpiblue")
+                    .getDoubleArray(new double[6]);
+
+        /* 
+        if (alliance.isPresent()) {
+            if (alliance.get() == Alliance.Blue) {
+            bot_pose = shooterLLTable
+                    .getEntry("botpose_wpiblue")
+                    .getDoubleArray(new double[6]);
+            } else if (alliance.get() == Alliance.Red) {
+            bot_pose = shooterLLTable
+                    .getEntry("botpose_wpired")
+                    .getDoubleArray(new double[6]);
+            }
+        }*/
+
+        bot_x = bot_pose[0];
+        bot_y = bot_pose[1];
+        rotation_z = (bot_pose[5] + 360) % 360;
+
+
+        return new Pose2d(
+                new Translation2d(bot_x, bot_y),
+                Rotation2d.fromDegrees(rotation_z));
+    }
+
+
+    public void updatePoseEstimatorWithVisionBotPose() {
+        //PoseLatency visionBotPose = m_visionSystem.getPoseLatency();
+        //Pose2d visionPose = getVisionEstimatedPose();
+        Pose2d visionPose = limelightMeasurement.pose;
+        // invalid LL data
+        //if (visionBotPose.pose2d.getX() == 0.0) {
+        //    return;
+        //}
+
+        if (visionPose.getX() == 0.0) {
+            isUpdating = false;
+            return;
+        }
+        
+
+        // distance from current pose to vision estimated pose
+        //double poseDifference = m_poseEstimator.getEstimatedPosition().getTranslation()
+        //    .getDistance(visionBotPose.pose2d.getTranslation());
+
+        double poseDifference = m_poseEstimator.getEstimatedPosition().getTranslation()
+            .getDistance(visionPose.getTranslation());
+
+        
+
+        if (limelightMeasurement.tagCount > 0) {
+            double xyStds;
+            double degStds;
+            // multiple targets detected
+            if (limelightMeasurement.tagCount >= 2 && limelightMeasurement.avgTagArea > 0.5) {
+                xyStds = 0.5;
+                degStds = 6;
+            }
+            // 1 target with large area and close to estimated pose
+            else if (limelightMeasurement.avgTagArea > 0.66 && poseDifference < 1.5) { //areea 0.8, diff 0.5
+                xyStds = 1.0;
+                degStds = 12;
+            }
+            // 1 target farther away and estimated pose is close
+            else if (limelightMeasurement.avgTagArea > 0.15 && poseDifference < 0.3) { // area 0.1, diff 0.3
+                xyStds = 2.0;
+                degStds = 30;
+            }
+            else if (gate) {
+                xyStds = 0;
+                degStds = 0;
+                gate = false;
+            }
+            // conditions don't match to add a vision measurement
+            else {
+                isUpdating = false;
+                return;
+            }
+
+            isUpdating = true;
+
+            m_poseEstimator.setVisionMeasurementStdDevs(
+                VecBuilder.fill(xyStds, xyStds, Units.degreesToRadians(degStds)));
+            m_poseEstimator.addVisionMeasurement(visionPose,
+                limelightMeasurement.timestampSeconds);
+        }
+    }
+
+
+
+    public double getLatency() {
+        return Timer.getFPGATimestamp() - Units.millisecondsToSeconds(tl);
+
+        // maybe need camera_latency?
+        // TODO: TEST 
+        // return results.targetingResults.latency_capture;
+
+        // TODO: TEST this breaks it for some reason
+        // return llresults.targetingResults.latency_pipeline; 
+    }
+
     @Override
     public void periodic() {
-        getChassisPitchError();
 
-        SwerveModulePosition[] state = { frontLeft.getPosition(), frontRight.getPosition(), backLeft.getPosition(),
+        SwerveModulePosition[] positions = { frontLeft.getPosition(), frontRight.getPosition(), backLeft.getPosition(),
                 backRight.getPosition() };
-        odometer.update(getRotation2d(), state);
+        m_poseEstimator.update(getRotation2d(), positions);
+
+        // The .name() method seems to have been removed from DriverStation.getAlliance. So this needs a switch statement or something
+        //SmartDashboard.putString("Alliance Color", DriverStation.getAlliance().name());
+        
+        // Set the robot pose on the Field2D object
+        
+
+        updateValues();
+
+        SmartDashboard.putBoolean("Vision Identified Tag", limelightMeasurement.tagCount > 0);
+        //SmartDashboard.putBoolean("Is good target", isGoodTarget());
+
+        /*
+
+        // if the limelight has a target
+        if (hasTargets()) {   //Originally if (hasTargets() && isGoodTarget()). isGoodTarget() never proves true for some reason
+            // grab data off network tables and clean it up a bit
+
+            //  Pose2d currentPosition = odometer.getEstimatedPosition();
+            Pose2d visionPose = getVisionEstimatedPose();
+
+            // if the data is good, use it to update the pose estimator
+            if (visionPose.getX() != 0 && visionPose.getY() != 0) // &&
+
+            // these check if vision is within a meter of our estimated pose otherwise we
+            // ignore it
+            // Math.abs(currentPosition.getX() - visionPose.getX()) < 1 &&    
+            // Math.abs(currentPosition.getY() - visionPose.getY()) < 1) {
+      
+            // Add the vision measurement to the PoseEstimator
+            odometer.addVisionMeasurement(visionPose, getLatency());
+                
+            }
+        */
+        
+        updatePoseEstimatorWithVisionBotPose();
+
+        m_field.setRobotPose(this.getPose());
+        SmartDashboard.putData(m_field);
+
         SmartDashboard.putNumber("Robot Heading", getHeading());
+        SmartDashboard.putBoolean("isUpdating", isUpdating);
+        SmartDashboard.putBoolean("gate", gate);
         SmartDashboard.putString("Robot Rotation", getPose().getRotation().toString());
         SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
 
@@ -173,6 +375,9 @@ public class SwerveSubsystem extends SubsystemBase {
         // SmartDashboard.putNumber("Roll Rate", gyro.getRawGyroZ());
         // SmartDashboard.putNumber("X Acceleration", gyro.getWorldLinearAccelX());
         // SmartDashboard.putNumber("Y Acceleration", gyro.getWorldLinearAccelY());
+        //offsets
+        //forward: 0.381
+        //up: 0.713
     }
 
     public void stopModules() {
@@ -190,6 +395,10 @@ public class SwerveSubsystem extends SubsystemBase {
         backRight.setDesiredState(desiredStates[3], feedforwardRight);
     }
 
+    // Though related to the LimeLights, these functions are needed for pose esimation.
+    
+    
+    /* This can probably be safely removed
     public float getChassisPitch() {
         return gyro.getPitch();
     }
@@ -210,5 +419,5 @@ public class SwerveSubsystem extends SubsystemBase {
                 * (180.0 / Math.PI));
         SmartDashboard.putNumber("Corrected Pitch", pitch);
         return (float) pitch;
-    }
+    } */
 }
