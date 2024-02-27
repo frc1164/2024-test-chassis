@@ -142,7 +142,7 @@ public final class Constants {
         public static final String kPickupLimelightNetworkTableName = "limelight-pickup";
         public static final String kShootLimelightNetworkTableName = "limelight-shoot";
     }
-}
+
     public static class LEDConstants {
         public static final int LEDport = 0;
         public static final int LEDlength = 12;

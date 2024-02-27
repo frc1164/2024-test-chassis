@@ -82,21 +82,6 @@ public class RobotContainer {
 
         private void configureButtonBindings() {
 
-                // Sets buttons for Operator controller
-                Trigger operator_aButton = m_controller.a();
-                Trigger operator_bButton = m_controller.b();
-                Trigger operator_yButton = m_controller.y();
-                Trigger operator_xButton = m_controller.x();
-                Trigger operator_lBumper = m_controller.leftBumper();
-                Trigger operator_rBumper = m_controller.rightBumper();
-                Trigger operator_lDPad = m_controller.povLeft();
-                Trigger operator_rDPad = m_controller.povRight();
-                Trigger operator_uDPad = m_controller.povUp();
-                Trigger operator_dDPad = m_controller.povDown();
-
-                operator_aButton.onTrue(new AprilTagAlignCmd(swerveSubsystem));
-                // operator_bButton.onTrue(new NoteAlignCmd(swerveSubsystem));
-
                 // Set button bindings for Driver controller. It would probably be better to implement this as an actual XBox controller.
                 // Meanshile, here is the XBox controller to JoystickButton mapping. If we are gonna do it like this, these numbers really should be defined in Constants!!!
                 //0 = A
@@ -108,32 +93,43 @@ public class RobotContainer {
 
                 // Press the B button to zero the heading
                 // Sets buttons
-                Trigger aButton = m_controller.a();
-                Trigger bButton = m_controller.b();
-                Trigger yButton = m_controller.y();
-                Trigger xButton = m_controller.x();
-                Trigger lBumper = m_controller.leftBumper();
-                Trigger rBumper = m_controller.rightBumper();
-                Trigger lDPad = m_controller.povLeft();
-                Trigger rDPad = m_controller.povRight();
-                Trigger uDPad = m_controller.povUp();
-                Trigger dDPad = m_controller.povDown();
+                Trigger OPaButton = m_controller.a();
+                Trigger OPbButton = m_controller.b();
+                Trigger OPyButton = m_controller.y();
+                Trigger OPxButton = m_controller.x();
+                Trigger OPlBumper = m_controller.leftBumper();
+                Trigger OPrBumper = m_controller.rightBumper();
+               
 
-                aButton.onTrue(new AprilTagAlignCmd(swerveSubsystem));
-                bButton.onTrue(new NoteAlignCmd(swerveSubsystem));
+                //LB = Short
+                //RB = Stow
+                //uDPad = Pickup
+                //dDPad = Climb Back
+                //lDPad = Climb Left
+                //rDPad = Climb Right
+                //A = Amp
+                //X = Hi
+                //Y = Mid
+                //B = Low
 
-                /*
-                 * new JoystickButton(driverJoytick, 2).whenPressed(() ->
-                 * swerveSubsystem.zeroHeading());
-                 */
+
+                Trigger OPlDPad = m_controller.povLeft();
+                Trigger OPrDPad = m_controller.povRight();
+                Trigger OPuDPad = m_controller.povUp();
+                Trigger OPdDPad = m_controller.povDown();
+                //OPuDPad.onTrue(new Pickup(m_IPFSSub));
+                //OPuDPad.onTrue(new InstantCommand(() -> m_Lift.setLiftSetpoint(LiftConstants.PickupHeight)));
+                OPuDPad.onTrue(new DriveAndPickupNoteCmd(swerveSubsystem));
+
+
+                
 
                 new JoystickButton(m_driveController, 1).onTrue(new InstantCommand(() -> swerveSubsystem.zeroHeading()));
-                //xButton.whileTrue(new DriveAndPickupNoteCmd(swerveSubsystem));
-                new JoystickButton(m_driveController, 2).whileTrue(new DriveAndPickupNoteCmd(swerveSubsystem));
 
 
-                // Press and hold the B button to Pathfind to (1.83, 3.0, 0 degrees). Releasing button should cancel the command
-                operator_bButton.whileTrue(AutoBuilder.pathfindToPose(
+
+                // Press and hold the B button to Pathfind to Roughly Source. Releasing button should cancel the command
+                OPbButton.whileTrue(AutoBuilder.pathfindToPose(
                         new Pose2d(15.75, 1.73, Rotation2d.fromDegrees(0)), 
                         new PathConstraints(
                           1.0, 1.0, 
@@ -144,7 +140,7 @@ public class RobotContainer {
                       ));
 
                 // Press and hold the Y button to Pathfind to (1.83, 3.0, 0 degrees). Releasing button should cancel the command
-                operator_yButton.whileTrue(AutoBuilder.pathfindToPose(
+                OPyButton.whileTrue(AutoBuilder.pathfindToPose(
                         new Pose2d(2.88, 6.99, Rotation2d.fromDegrees(0)), 
                         new PathConstraints(
                           1.0, 1.0, 
@@ -155,27 +151,10 @@ public class RobotContainer {
                       ));
 
                 //Press and hold the X button to Pathfind to the start of the "AMP-Path" path. Releasing the button should cancel the command
-                operator_xButton.whileTrue(AutoBuilder.pathfindThenFollowPath(
+                OPaButton.whileTrue(AutoBuilder.pathfindThenFollowPath(
                         PathPlannerPath.fromPathFile("AMP-path"), 
                         new PathConstraints(1.0, 1.0, Units.degreesToRadians(180), Units.degreesToRadians(270)), 
                         0.0));
-
-                //These SmartDashboard buttons do the same thing as the two above button bindings. They can be safely deleted once the controller button bindings work.
-                SmartDashboard.putData("Pathfind to Pickup Pos", AutoBuilder.pathfindToPose(
-                        new Pose2d(1.83, 3.0, Rotation2d.fromDegrees(0)), 
-                        new PathConstraints(
-                          1.0, 1.0, 
-                          Units.degreesToRadians(180), Units.degreesToRadians(270)
-                        ), 
-                        0, 
-                        2.0
-                      ));
-
-                SmartDashboard.putData("Pathfind to AMP Path", AutoBuilder.pathfindThenFollowPath(
-                        PathPlannerPath.fromPathFile("AMP-path"), 
-                        new PathConstraints(1.0, 1.0, Units.degreesToRadians(180), Units.degreesToRadians(270)), 
-                        0.0)
-                      );       
         }
 
         public Command getAutonomousCommand() {

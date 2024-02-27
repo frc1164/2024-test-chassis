@@ -401,13 +401,13 @@ public class SwerveSubsystem extends SubsystemBase {
     /* This can probably be safely removed
     public float getChassisPitch() {
         return gyro.getPitch();
-    }
+    }*/
 
     public float getChassisYaw() {
         return gyro.getYaw();
     }
 
-    public float getChassisPitchError() {
+   /* public float getChassisPitchError() {
         double pitch = (double) gyro.getPitch();
         SmartDashboard.putNumber("Pitch", pitch);
         pitch = pitch * Math.PI / 180;
@@ -418,6 +418,5 @@ public class SwerveSubsystem extends SubsystemBase {
                         + Math.pow(g, 2.0) * Math.pow(Math.cos(pitch), 2.0)))
                 * (180.0 / Math.PI));
         SmartDashboard.putNumber("Corrected Pitch", pitch);
-        return (float) pitch;
-    } */
-}
+        return (float) pitch;*/
+    } 
