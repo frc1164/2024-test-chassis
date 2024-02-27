@@ -12,6 +12,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.LimeLightConstants;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class NoteAlignCmd extends Command {
@@ -26,7 +27,7 @@ public class NoteAlignCmd extends Command {
     this.m_swerveSubsystem = swerveSubsystem;
     this.lateraPidController = new PIDController(0.05, 0, 0);
 
-    this.limelighNetworkTable = NetworkTableInstance.getDefault().getTable("limelight");
+    this.limelighNetworkTable = NetworkTableInstance.getDefault().getTable(LimeLightConstants.kllPickup);
 
     lateraPidController.setSetpoint(0);
 
@@ -36,7 +37,7 @@ public class NoteAlignCmd extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    limelighNetworkTable.getEntry("pipeline").setNumber(1);
+    limelighNetworkTable.getEntry("pipeline").setNumber(LimeLightConstants.kNeuralNetworkPipeline);
     SmartDashboard.putBoolean("NoteAlign", true);
   }
 
