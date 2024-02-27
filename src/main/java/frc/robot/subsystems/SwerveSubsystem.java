@@ -403,6 +403,10 @@ public class SwerveSubsystem extends SubsystemBase {
         return gyro.getPitch();
     }
 
+    public float getChassisYaw() {
+        return gyro.getYaw();
+    }
+
     public float getChassisPitchError() {
         double pitch = (double) gyro.getPitch();
         SmartDashboard.putNumber("Pitch", pitch);
