@@ -1,0 +1,25 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 3.913825345482358,
+      "y": 5.7617315805245015
+    },
+    "rotation": 119.538782259558
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "StLeft"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Scoring Paths ",
+  "choreoAuto": false
+}

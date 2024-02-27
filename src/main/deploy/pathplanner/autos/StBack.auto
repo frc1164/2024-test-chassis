@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2.88,
-      "y": 5.51
+      "x": 7.146016232118054,
+      "y": 4.11050362756931
     },
-    "rotation": 179.42890002279458
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -14,12 +14,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": " Mid Drive In"
+            "pathName": "StBack"
           }
         }
       ]
     }
   },
-  "folder": "HML Drive In Shoot SP",
+  "folder": "Scoring Paths ",
   "choreoAuto": false
 }

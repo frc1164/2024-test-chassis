@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3819377854087318,
-      "y": 5.507956166644462
+      "x": 2.48,
+      "y": 4.07
     },
     "rotation": 0
   },
@@ -14,18 +14,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Mid Drive Out"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": " Mid Drive In"
+            "pathName": "SpLow"
           }
         }
       ]
     }
   },
-  "folder": "HML Shoot SP Leave Shoot SP",
+  "folder": "Scoring Paths ",
   "choreoAuto": false
 }

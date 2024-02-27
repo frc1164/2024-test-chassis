@@ -1,0 +1,25 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 2.88,
+      "y": 5.51
+    },
+    "rotation": -1.2714246536490694
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "SpMid"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "Scoring Paths ",
+  "choreoAuto": false
+}

@@ -12,14 +12,20 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "SpeakerClose"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": " High Drive In"
+            "pathName": "SpHigh"
           }
         }
       ]
     }
   },
-  "folder": "HML Drive In Shoot SP",
+  "folder": "Scoring Paths ",
   "choreoAuto": false
 }
