@@ -12,6 +12,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "SpeakerClose"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "High Drive Out"
@@ -20,7 +26,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": " High Drive In"
+            "pathName": "SpHigh"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "SpeakerClose"
           }
         }
       ]

@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.8263133149866646,
-      "y": 6.690439013952964
+      "x": 3.0120909314571827,
+      "y": 6.511225119454518
     },
-    "rotation": 58.870279749303585
+    "rotation": -90.0
   },
   "command": {
     "type": "sequential",
@@ -14,18 +14,18 @@
         {
           "type": "named",
           "data": {
-            "name": "SpeakerClose"
+            "name": "AmpClose"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "High Drive Out"
+            "pathName": "Shoot Amp "
           }
         }
       ]
     }
   },
-  "folder": "HML Shoot SP LEAVE",
+  "folder": "Scoring Paths ",
   "choreoAuto": false
 }

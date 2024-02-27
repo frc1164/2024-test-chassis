@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7123390646436764,
-        "y": 4.339720100628832
+        "x": 3.7615844703872,
+        "y": 2.2016372706069234
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7123390646436798,
-        "y": 4.339720100628832
+        "x": 4.1597529129437705,
+        "y": 2.8925766268080317
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.450786344413977,
-        "y": 4.1046482092964185
+        "x": 4.370547970767837,
+        "y": 3.2439017231814775
       },
       "prevControl": {
-        "x": 1.4507863444139768,
-        "y": 4.1046482092964185
+        "x": 3.948957855119702,
+        "y": 2.4241431649767717
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,25 +30,7 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "Pickup",
-      "waypointRelativePos": 0.35,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Pickup"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -57,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -120.96375653207349,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "HML Drive Out",
+  "folder": "Scoring Paths",
   "previewStartingState": {
-    "rotation": -61.26385756738269,
+    "rotation": -120.96375653207365,
     "velocity": 0
   },
   "useDefaultConstraints": true

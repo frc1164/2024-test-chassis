@@ -12,6 +12,12 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "SpeakerClose"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Mid Drive Out"

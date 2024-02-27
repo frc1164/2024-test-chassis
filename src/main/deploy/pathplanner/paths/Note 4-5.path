@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.829665737022928,
-        "y": 0.7451433326840008
+        "x": 7.204570414846962,
+        "y": 0.9251560871167382
       },
       "isLocked": false,
       "linkedName": null
@@ -36,12 +36,12 @@
         "y": 2.443253721132761
       },
       "prevControl": {
-        "x": 7.82225616509728,
-        "y": 2.303300858737181
+        "x": 8.27699576769808,
+        "y": 1.9651388710816047
       },
       "nextControl": {
-        "x": 8.729205294152374,
-        "y": 2.580938347223433
+        "x": 8.281967377058862,
+        "y": 2.939419972991158
       },
       "isLocked": false,
       "linkedName": null
@@ -75,9 +75,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Mid notes",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 0.7994066268555365,
     "velocity": 0
   },
   "useDefaultConstraints": true
