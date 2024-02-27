@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.LEDs;
+import frc.robot.Constants.LEDConstants.ledMode;
 import frc.robot.commands.SwerveJoystickCmd;
 import frc.robot.commands.AprilTagAlignCmd;
 import frc.robot.commands.NoteAlignCmd;
@@ -22,13 +24,19 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
+import com.pathplanner.lib.auto.NamedCommands;
 
 public class RobotContainer {
 
         private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
 
-        SendableChooser<Command> m_chooser = new SendableChooser<>();
         private final SendableChooser<Command> autoChooser;
+
+
+        protected final static SendableChooser<ledMode> LED_Chooser=new SendableChooser<>();
+
+
+        public final LEDs m_LEDs;
 
         private final Joystick m_driveController = new Joystick(OIConstants.kDriverControllerPort);
        // private final XboxController m_drivedriveController = new XboxController(OIConstants.kDriverControllerPort);
@@ -42,6 +50,10 @@ public class RobotContainer {
                                 () -> -m_driveController.getRawAxis(OIConstants.kDriverRotAxis),
                                 () -> !m_driveController.getRawButton(0)));
 
+                 //Register named commands
+                NamedCommands.registerCommand("NoteAlignedCmd", new NoteAlignCmd(swerveSubsystem));
+                NamedCommands.registerCommand("AprilTagAlignCmd", new AprilTagAlignCmd(swerveSubsystem));
+
                 // Build an auto chooser. This will use Commands.none() as the default option.
                 autoChooser = AutoBuilder.buildAutoChooser();
 
@@ -50,6 +62,21 @@ public class RobotContainer {
 
                 SmartDashboard.putData("Auto Chooser", autoChooser);
                 configureButtonBindings();
+
+
+                LED_Chooser.setDefaultOption("RED", ledMode.RED);
+                LED_Chooser.addOption("BLUE", ledMode.BLUE);
+                LED_Chooser.addOption("PURPLE", ledMode.PURPLE);
+                LED_Chooser.addOption("GREEN", ledMode.GREEN);
+                LED_Chooser.addOption("RAINBOW", ledMode.RAINBOW);
+                LED_Chooser.addOption("YELLOW", ledMode.YELLOW);
+                LED_Chooser.addOption("TEAM", ledMode.TEAM);
+                LED_Chooser.addOption("ALLIANCE", ledMode.ALLIANCE);
+          
+                SmartDashboard.putData("LED COLORS", LED_Chooser);
+
+                m_LEDs = new LEDs();
+
         }
 
         private void configureButtonBindings() {
@@ -79,6 +106,26 @@ public class RobotContainer {
                 //5 = Right bumper 
 
                 // Press the B button to zero the heading
+                // Sets buttons
+                Trigger aButton = m_controller.a();
+                Trigger bButton = m_controller.b();
+                Trigger yButton = m_controller.y();
+                Trigger xButton = m_controller.x();
+                Trigger lBumper = m_controller.leftBumper();
+                Trigger rBumper = m_controller.rightBumper();
+                Trigger lDPad = m_controller.povLeft();
+                Trigger rDPad = m_controller.povRight();
+                Trigger uDPad = m_controller.povUp();
+                Trigger dDPad = m_controller.povDown();
+
+                aButton.onTrue(new AprilTagAlignCmd(swerveSubsystem));
+                bButton.onTrue(new NoteAlignCmd(swerveSubsystem));
+
+                /*
+                 * new JoystickButton(driverJoytick, 2).whenPressed(() ->
+                 * swerveSubsystem.zeroHeading());
+                 */
+
                 new JoystickButton(m_driveController, 1).onTrue(new InstantCommand(() -> swerveSubsystem.zeroHeading()));
 
                 // Press and hold the B button to Pathfind to (1.83, 3.0, 0 degrees). Releasing button should cancel the command

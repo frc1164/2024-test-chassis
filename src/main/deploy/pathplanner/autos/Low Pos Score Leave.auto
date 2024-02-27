@@ -1,0 +1,25 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7123390646436764,
+      "y": 4.339720100628832
+    },
+    "rotation": -61.125241785576215
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Low Drive Out"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "HML Shoot SP LEAVE",
+  "choreoAuto": false
+}

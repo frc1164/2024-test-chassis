@@ -31,7 +31,7 @@ public class NoteAlignCmd extends Command {
 
     lateraPidController.setSetpoint(0);
 
-    addRequirements(swerveSubsystem);
+    addRequirements(this.m_swerveSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -64,11 +64,16 @@ public class NoteAlignCmd extends Command {
   @Override
   public void end(boolean interrupted) {
     SmartDashboard.putBoolean("NoteAlign", false);
+    limelighNetworkTable.getEntry("pipeline").setNumber(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    SmartDashboard.putNumber("tx", tx);
+    if(Math.abs(tx) <= 2) {
+      return true;
+    }
     return false;
   }
 }

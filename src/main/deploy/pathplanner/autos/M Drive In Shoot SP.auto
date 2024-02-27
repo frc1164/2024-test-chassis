@@ -1,0 +1,25 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 2.88,
+      "y": 5.51
+    },
+    "rotation": 179.42890002279458
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": " Mid Drive In"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "HML Drive In Shoot SP",
+  "choreoAuto": false
+}

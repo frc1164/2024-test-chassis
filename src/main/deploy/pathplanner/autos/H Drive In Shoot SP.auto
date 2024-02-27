@@ -1,0 +1,25 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 2.89,
+      "y": 7.02
+    },
+    "rotation": -0.320861180309675
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": " High Drive In"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "HML Drive In Shoot SP",
+  "choreoAuto": false
+}
