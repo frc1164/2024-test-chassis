@@ -129,10 +129,10 @@ public class RobotContainer {
 
 
                 // Press and hold the B button to Pathfind to Roughly Source. Releasing button should cancel the command
-                OPbButton.whileTrue(AutoBuilder.pathfindToPose(
+                OPdDPad.whileTrue(AutoBuilder.pathfindToPose(
                         new Pose2d(15.75, 1.73, Rotation2d.fromDegrees(0)), 
                         new PathConstraints(
-                          1.0, 1.0, 
+                          3.0, 1.0, 
                           Units.degreesToRadians(180), Units.degreesToRadians(270)
                         ), 
                         0, 
@@ -140,7 +140,7 @@ public class RobotContainer {
                       ));
 
                 // Press and hold the Y button to Pathfind to (1.83, 3.0, 0 degrees). Releasing button should cancel the command
-                OPyButton.whileTrue(AutoBuilder.pathfindToPose(
+                OPlDPad.whileTrue(AutoBuilder.pathfindToPose(
                         new Pose2d(2.88, 6.99, Rotation2d.fromDegrees(0)), 
                         new PathConstraints(
                           1.0, 1.0, 
@@ -155,6 +155,22 @@ public class RobotContainer {
                         PathPlannerPath.fromPathFile("AMP-path"), 
                         new PathConstraints(1.0, 1.0, Units.degreesToRadians(180), Units.degreesToRadians(270)), 
                         0.0));
+
+                OPxButton.whileTrue(AutoBuilder.pathfindThenFollowPath(
+                        PathPlannerPath.fromPathFile("SpHigh"), 
+                        new PathConstraints(1.0, 1.0, Units.degreesToRadians(180), Units.degreesToRadians(270)), 
+                        0.0));
+
+                OPyButton.whileTrue(AutoBuilder.pathfindThenFollowPath(
+                        PathPlannerPath.fromPathFile("SpMid"), 
+                        new PathConstraints(1.0, 1.0, Units.degreesToRadians(180), Units.degreesToRadians(270)), 
+                        0.0));
+                
+                OPbButton.whileTrue(AutoBuilder.pathfindThenFollowPath(
+                        PathPlannerPath.fromPathFile("SpLow"), 
+                        new PathConstraints(1.0, 1.0, Units.degreesToRadians(180), Units.degreesToRadians(270)), 
+                        0.0));
+                        
         }
 
         public Command getAutonomousCommand() {
