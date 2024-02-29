@@ -6,13 +6,16 @@ package frc.robot;
 
 import java.util.Optional;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 //import frc.robot.Constants.LEDConstants.ledMode;
 import frc.robot.Constants.LEDConstants;
+import frc.robot.Constants.VisionConstants;
 import frc.robot.Constants.LEDConstants.ledMode;
 
 
@@ -31,6 +34,7 @@ private AddressableLEDBuffer purple_ledBuffer;
 private AddressableLEDBuffer yellow_ledBuffer;
 private AddressableLEDBuffer team_ledBuffer;
 private AddressableLEDBuffer rainbow_ledBuffer;
+private int counter;
 
 Optional<DriverStation.Alliance> alliance = DriverStation.getAlliance();
 /*public enum ledMode {
@@ -116,13 +120,29 @@ public void changeColor (ledMode colorChange){
   new_change = true;
 }
 
-  public void LED_init() {
-    m_led.setLength(m_ledBuffer.getLength());
-    m_led.setData(m_ledBuffer);
-    m_led.start();
-  } 
+public void LED_init() {
+  m_led.setLength(m_ledBuffer.getLength());
+  m_led.setData(m_ledBuffer);
+  m_led.start();
+} 
 
-  @Override
+public boolean getCanSeeNote() {
+  // If we can see a NOTE, return true
+  if(NetworkTableInstance.getDefault().getTable(VisionConstants.kPickupLimelightNetworkTableName).getEntry("tx").getDouble(0) != 0) {
+    counter = 0;
+    return true;
+  }
+  // Reduce noise
+  else {
+    if(counter < 3) {
+      counter = counter + 1;
+      return true;
+    }
+  }
+  return false;
+}
+
+@Override
   public void periodic() {
     // This method will be called once per scheduler run
     if (new_change) {
