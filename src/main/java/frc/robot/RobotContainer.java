@@ -129,7 +129,7 @@ public class RobotContainer {
                 Trigger OPdDPad = m_controller.povDown();
                 //OPuDPad.onTrue(new Pickup(m_IPFSSub));
                 //OPuDPad.onTrue(new InstantCommand(() -> m_Lift.setLiftSetpoint(LiftConstants.PickupHeight)));
-                OPuDPad.onTrue(new DriveAndPickupNoteCmd(swerveSubsystem));
+                OPuDPad.whileTrue(new DriveAndPickupNoteCmd(swerveSubsystem));
 
 
                 
