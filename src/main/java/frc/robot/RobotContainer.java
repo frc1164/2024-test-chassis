@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants.LEDConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.LEDs;
@@ -76,7 +77,7 @@ public class RobotContainer {
           
                 SmartDashboard.putData("LED COLORS", LED_Chooser);
 
-                m_LEDs = new LEDs();
+                m_LEDs = new LEDs(LEDConstants.statusLEDlength);
 
         }
 
@@ -93,6 +94,15 @@ public class RobotContainer {
 
                 // Press the B button to zero the heading
                 // Sets buttons
+
+
+                new JoystickButton(m_driveController, 5).onTrue(new InstantCommand(() -> m_LEDs.changeColor(ledMode.GREEN)));
+
+
+
+
+
+
                 Trigger OPaButton = m_controller.a();
                 Trigger OPbButton = m_controller.b();
                 Trigger OPyButton = m_controller.y();

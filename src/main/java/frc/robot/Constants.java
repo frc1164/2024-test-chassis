@@ -149,8 +149,10 @@ public final class Constants {
     }
 
     public static class LEDConstants {
-        public static final int LEDport = 0;
-        public static final int LEDlength = 12;
+        public static final int statusLEDport = 0;
+        public static final int statusLEDlength = 36;
+        public static final int ziaLEDport = 1;
+        public static final int ziaLEDlength = 48;
 
         public enum ledMode {
             RED, GREEN, RAINBOW, TEAM, BLUE, PURPLE, YELLOW, ALLIANCE;
